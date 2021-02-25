@@ -1,0 +1,8 @@
+[03-Nov-2020 07:37:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Tests\TestCase' not found in /home/adrianpo/public_html/tests/Feature/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/tests/Feature/ExampleTest.php on line 8
+[06-Nov-2020 06:28:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Tests\TestCase' not found in /home/adrianpo/public_html/tests/Feature/ExampleTest.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/tests/Feature/ExampleTest.php on line 8

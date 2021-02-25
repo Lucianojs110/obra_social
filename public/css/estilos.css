@@ -1,0 +1,282 @@
+* {
+margin: 0px;
+padding: 0px;
+}
+body{
+text-align: center;
+font-family: 'verdana';
+background: #e3e5db;
+}
+header, section, footer, aside, nav, article, figure, figcaption,
+hgroup{
+display : block;
+}
+#contenedor {
+	background: url('../img/cabecera.jpg') no-repeat #e3e5db;
+	display: block;
+	text-align: left;
+	width: 1250px;
+	padding-left: 35px;
+	padding-top: 85px; /* 75 orig */
+	margin:0px auto;
+
+}
+#boton_im {
+	position:absolute;
+	margin-top:-40px;
+	margin-left: 710px;
+}
+#boton_im input{
+	width: 90px;
+	height: 25px;
+	color:#fff;
+	background: #000;
+	border:none;
+	border-radius: 15px;
+}
+#principal {
+
+}
+#titulo {
+	display: block;
+	color:#fff;
+	width: 1070px;
+	height: 42px;
+	font-size:20.3px;
+	letter-spacing: 0.3px;
+}
+#columnas {
+	padding-top:2px;
+}
+.linea {
+	margin-top: 0px !important;
+}
+.nro_afiliado, .nro_afiliado input {
+	width: 314px;
+}
+.nro_afiliado input {
+	border-left: 2px solid black !important;
+	border-right: 2px solid black !important;
+	background: url('../img/fondo_nro_afiliado.jpg');
+	letter-spacing: 19.5px;/*1.4em;*/
+	text-align: left;
+	padding-left: 7px !important;
+	padding-right: 0px;
+}
+div.nro_afiliado, div.nombre, div.modulo, div.svi, div.importe, div.firma, div.cantidad {
+	display: block;
+	float: left;
+}
+input {
+	display: block;
+	border-bottom: 1px solid black;
+	border-left : 2px solid black;
+	border-right: 2px solid black;
+	border-top:none;
+	background: #e3e5db;
+	padding-left:3px;
+}
+.nro_afiliado input {
+	border-left : 1px solid black;
+	border-right: 1px solid black;
+	padding-left: 8px;
+}
+#importe_total input {
+	border:none;
+	width: 98px;
+	padding-right: 0px;
+	background: #66bab5;
+}
+#importe_total label {
+	float: left;
+	font-size: 12px;
+	width: 147px;
+}
+#importe_total {
+	background: #66bab5;
+	width: 253px;
+	height: 18px;
+	margin-left: 813px;
+	padding-left: 20px;
+	padding-top: 3px;
+	margin-top: 3px;
+}
+.nombre {
+	margin-left: 26px;
+	width: 325px;
+}
+.nombre input {
+	width: 321px !important;
+}
+
+.cantidad {
+	padding-left: 13px;
+}
+
+.cantidad input {
+	width: 15px !important;
+}
+.modulo {
+	width: 98px;
+	margin-left: 6px;
+}
+.modulo input {
+	width: 98px;
+	text-align: center;
+}
+.svi {
+	width: 123px;
+	margin-left: 23px;
+}
+.svi input {
+	width: 123px;
+	text-align: center;
+}
+.importe , .firma, .importe input, .firma input{
+	width: 98px;
+}
+.importe {
+	margin-left: 42px;
+}
+.importe input, #importe_total input {
+	text-align: center;
+	padding-right: 3px;
+}
+.firma {
+	margin-left: 23px
+}
+.salto {
+	clear: both;
+}
+.linea {
+	width: 1218px;
+	height: 25px;
+	display: inline-block;
+
+}
+.linea input {
+	height: 27px;
+	border-top: 1px solid black;
+}
+.arriba {
+	height: 25px !important ;
+}
+.arriba input {
+	height: 27px !important;
+	border-top:2px solid black !important;
+}
+.abajo {
+	height: 25px !important ;
+}
+.abajo input {
+	height: 26px !important;
+}
+.abajo input {
+	border-bottom: 2px solid black;
+}
+.izq input {
+	border-left: 2px solid black;
+}
+.der input {
+	border-right: 2px solid black;
+	width: 18px !important;
+}
+#titulos span {
+	font-size: 11px;
+	display: inline-block;
+	letter-spacing: -0.5px;
+}
+.tit_afiliado {
+	display: inline-block;
+	width: 336px;
+}
+.tit_nombre {
+	display: inline-block;
+	width: 330px;
+}
+
+.tit_cantidad {
+	display: inline-block;
+	width: 15px;
+}
+
+.tit_modulo {
+	display: inline-block;
+	width: 115px;
+	margin-left: 10px;
+}
+.tit_svi {
+	display: inline-block;
+	width: 160px;
+}
+.tit_importe {
+	display: inline-block;
+	width: 115px;
+}
+.tit_firma {
+	display: inline-block;
+	width: 110px;
+}
+#datos {
+	font-size: 13.5px;
+}
+#d_nombre {
+	margin-top:33px;
+}
+#d_periodo {
+	margin-top: 13px;
+	margin-bottom: 13px;
+}
+.input_dnombre, .d_periodo1, .d_preiodo2{
+	display: inline-block;
+	border:none;
+	border-bottom: 1.5px dotted black;
+	height: 20px;
+}
+.input_dnombre {
+	width : 928px;
+}
+.d_periodo1 {
+	width: 60px;
+	margin-left: 6px;
+	margin-top: -3px;
+	margin-right: 2px;
+}
+.d_preiodo2 {
+	width: 68px;
+}
+#datos label {
+	margin-bottom: 0px;
+	float: left;
+	margin-top: 8px;
+}
+.barra {
+	display: inline-block;
+	margin-top: 6px;
+	float: left;
+	margin-left: 2px;
+}
+.d_periodo1{
+	float: left;
+	margin-top: 0px;
+}
+#firma {
+	width: 266px;
+	height: 30px;
+	font-size: 14px;
+	margin-left: 935px;
+	border-top:1px dotted black;
+	text-align: center;
+	padding-top: 2px;
+	margin-top: 60px; /* Original 74px */
+}
+#footer {
+	width: auto;
+	text-align: center;
+	background: #66bab5;
+	height: 25px;
+	font-size: 15px;
+	padding-top: 4px;
+	letter-spacing: -1px;
+	margin-left: -35px;
+}

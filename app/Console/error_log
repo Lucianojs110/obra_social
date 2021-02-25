@@ -1,0 +1,16 @@
+[11-Oct-2020 23:50:46 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Console\Kernel' not found in /home/adrianpo/public_html/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Console/Kernel.php on line 8
+[14-Oct-2020 20:59:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Console\Kernel' not found in /home/adrianpo/public_html/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Console/Kernel.php on line 8
+[29-Oct-2020 04:41:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Console\Kernel' not found in /home/adrianpo/public_html/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Console/Kernel.php on line 8
+[01-Nov-2020 03:40:26 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Console\Kernel' not found in /home/adrianpo/public_html/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Console/Kernel.php on line 8

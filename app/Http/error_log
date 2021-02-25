@@ -1,0 +1,20 @@
+[12-Oct-2020 00:50:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/adrianpo/public_html/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Http/Kernel.php on line 7
+[14-Oct-2020 21:54:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/adrianpo/public_html/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Http/Kernel.php on line 7
+[01-Nov-2020 04:23:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/adrianpo/public_html/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Http/Kernel.php on line 7
+[07-Nov-2020 02:07:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/adrianpo/public_html/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Http/Kernel.php on line 7
+[10-Nov-2020 00:43:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/adrianpo/public_html/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Http/Kernel.php on line 7

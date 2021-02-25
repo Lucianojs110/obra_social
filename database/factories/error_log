@@ -1,0 +1,15 @@
+[04-Nov-2020 02:29:43 UTC] PHP Notice:  Undefined variable: factory in /home/adrianpo/public_html/database/factories/UserFactory.php on line 20
+[04-Nov-2020 02:29:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function define() on null in /home/adrianpo/public_html/database/factories/UserFactory.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/factories/UserFactory.php on line 20
+[04-Nov-2020 09:30:11 UTC] PHP Notice:  Undefined variable: factory in /home/adrianpo/public_html/database/factories/VideoFactory.php on line 8
+[04-Nov-2020 09:30:11 UTC] PHP Fatal error:  Uncaught Error: Call to a member function define() on null in /home/adrianpo/public_html/database/factories/VideoFactory.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/factories/VideoFactory.php on line 8
+[07-Nov-2020 09:29:17 UTC] PHP Notice:  Undefined variable: factory in /home/adrianpo/public_html/database/factories/VideoFactory.php on line 8
+[07-Nov-2020 09:29:17 UTC] PHP Fatal error:  Uncaught Error: Call to a member function define() on null in /home/adrianpo/public_html/database/factories/VideoFactory.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/factories/VideoFactory.php on line 8

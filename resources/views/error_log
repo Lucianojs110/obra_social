@@ -1,0 +1,60 @@
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 117
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 117
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'codigo_modulo' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 117
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 118
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 118
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'planilla' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 118
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 119
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'os_id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 119
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 120
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 120
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 195
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 195
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Trying to get property 'nombre' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 195
+[10-Oct-2020 19:38:09 UTC] PHP Notice:  Undefined variable: i in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 230
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'codigo_modulo' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'planilla' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 134
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'os_id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 134
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 135
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 135
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 210
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 210
+[28-Oct-2020 01:21:57 UTC] PHP Notice:  Trying to get property 'nombre' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 210
+[30-Oct-2020 23:23:16 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'codigo_modulo' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'planilla' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 134
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'os_id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 134
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 135
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 135
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 210
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 210
+[30-Oct-2020 23:23:17 UTC] PHP Notice:  Trying to get property 'nombre' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 210
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'codigo_modulo' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 132
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'planilla' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 133
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 134
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'os_id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 134
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 135
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 135
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 206
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 206
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'codigo_modulo' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 206
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 207
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'prestacion' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 207
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'planilla' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 207
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 208
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'os_id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 208
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Undefined variable: beneficiario in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 209
+[14-Nov-2020 20:48:43 UTC] PHP Notice:  Trying to get property 'id' of non-object in /home/adrianpo/public_html/resources/views/beneficiario.blade.php on line 209

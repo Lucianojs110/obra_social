@@ -1,0 +1,8 @@
+[15-Oct-2020 05:08:30 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/rehabilitacion.blade.php on line 93
+[16-Oct-2020 01:11:31 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/integracion.blade.php on line 107
+[18-Oct-2020 00:37:52 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/rehabilitacion.blade.php on line 93
+[01-Nov-2020 11:18:42 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/rehabilitacion.blade.php on line 93
+[02-Nov-2020 08:54:36 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/integracion.blade.php on line 107
+[05-Nov-2020 06:58:46 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/integracion.blade.php on line 107
+[07-Nov-2020 09:00:30 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/rehabilitacion.blade.php on line 93
+[17-Nov-2020 08:50:11 UTC] PHP Notice:  Undefined variable: fechaFinal in /home/adrianpo/public_html/resources/views/forms/integracion.blade.php on line 107

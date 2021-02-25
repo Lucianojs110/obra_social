@@ -1,0 +1,244 @@
+[25-Sep-2020 05:59:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[26-Sep-2020 07:32:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php on line 7
+[26-Sep-2020 17:14:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php on line 7
+[26-Sep-2020 21:34:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php on line 7
+[27-Sep-2020 05:43:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[27-Sep-2020 10:51:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php on line 7
+[27-Sep-2020 14:11:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php on line 7
+[28-Sep-2020 04:32:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[28-Sep-2020 22:37:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php on line 7
+[29-Sep-2020 13:41:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[29-Sep-2020 15:15:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php on line 7
+[29-Sep-2020 15:25:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php on line 7
+[29-Sep-2020 19:10:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[29-Sep-2020 19:49:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php on line 7
+[30-Sep-2020 03:26:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[11-Oct-2020 04:30:12 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php on line 7
+[12-Oct-2020 01:35:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[12-Oct-2020 07:25:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php on line 7
+[12-Oct-2020 11:16:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php on line 7
+[14-Oct-2020 11:02:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[14-Oct-2020 11:41:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php on line 7
+[14-Oct-2020 11:50:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php on line 7
+[14-Oct-2020 14:36:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[14-Oct-2020 23:11:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[15-Oct-2020 21:39:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[16-Oct-2020 14:08:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php on line 7
+[17-Oct-2020 05:50:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[17-Oct-2020 07:10:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php on line 7
+[17-Oct-2020 10:26:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[17-Oct-2020 10:39:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php on line 7
+[18-Oct-2020 18:29:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[20-Oct-2020 07:15:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php on line 7
+[26-Oct-2020 07:37:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[27-Oct-2020 09:26:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[28-Oct-2020 10:16:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php on line 7
+[28-Oct-2020 18:36:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_03_220449_create_videos_table.php on line 7
+[29-Oct-2020 07:30:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[29-Oct-2020 12:27:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php on line 7
+[29-Oct-2020 15:43:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php on line 7
+[30-Oct-2020 06:36:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[30-Oct-2020 23:06:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php on line 7
+[31-Oct-2020 15:15:29 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_10_26_201032_create_feriados_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_10_26_201032_create_feriados_table.php on line 7
+[31-Oct-2020 15:30:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[31-Oct-2020 20:20:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php on line 7
+[31-Oct-2020 20:49:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[01-Nov-2020 11:13:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php on line 7
+[03-Nov-2020 13:24:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_10_26_201032_create_feriados_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_10_26_201032_create_feriados_table.php on line 7
+[06-Nov-2020 04:19:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_15_130138_create_obrasocial_table.php on line 7
+[06-Nov-2020 12:47:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[06-Nov-2020 14:27:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php on line 7
+[06-Nov-2020 17:40:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[07-Nov-2020 07:49:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_07_01_193636_create_sesion_table.php on line 7
+[07-Nov-2020 10:38:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_16_195618_create_beneficiario_table.php on line 7
+[08-Nov-2020 18:50:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_05_13_211628_create_prestador_table.php on line 7
+[09-Nov-2020 11:48:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[09-Nov-2020 13:49:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_21_222939_create_inasistencias_table.php on line 7
+[09-Nov-2020 16:48:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[13-Nov-2020 03:09:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[15-Nov-2020 20:28:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_06_05_185121_create_prestacion_table.php on line 7
+[16-Nov-2020 04:17:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2020_08_07_222712_create_tradita_table.php on line 7
+[17-Nov-2020 04:26:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7

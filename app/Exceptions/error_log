@@ -1,0 +1,12 @@
+[12-Oct-2020 19:34:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/adrianpo/public_html/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Exceptions/Handler.php on line 8
+[27-Oct-2020 01:58:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/adrianpo/public_html/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Exceptions/Handler.php on line 8
+[10-Nov-2020 20:33:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/adrianpo/public_html/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/adrianpo/public_html/app/Exceptions/Handler.php on line 8

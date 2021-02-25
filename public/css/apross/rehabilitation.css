@@ -1,0 +1,170 @@
+main {
+	padding-top: 0;
+}
+.content-print {
+	height: 800px;
+}
+.panel {
+	height: 80%;
+	height: 690px;
+}
+.appross.panel-container {
+	position: relative;
+	padding: 18px 18px 0 18px;
+	z-index: 2;
+}
+.panel {
+	width: 100%;
+}
+.appross.logo {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 3;
+	width: 190px;
+	height: 100px;
+	padding-top: 5px;
+	border-radius: 10px;
+	overflow: hidden;
+	background-color: var(--apross-light-blue);
+}
+.appross.logo img {
+	display: block;
+	width: 87.5%;
+}
+
+.panel .title {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 50px;
+	padding-left: 180px;
+	font-size: 1rem;
+	font-weight: 800;
+	letter-spacing: 0.05rem;
+	color: var(--main-white);
+	background-color: var(--apross-extra-light-blue);
+	transform: translateY(15px);
+}
+.panel .title .arrow-right {
+	margin-right: 10px;
+}
+.panel .content {
+	padding: 40px 35px 15px 35px;
+	font-size: 0.9rem;
+	color: var(--apross-font-color);
+}
+.form {
+	text-transform: uppercase;
+}
+.form .form-group {
+	margin-top: 0;
+}
+.form .form-group .form-prepend {
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: -0.01rem;
+}
+.form .form-group .form-input {
+	border-color: var(--apross-font-color);
+}
+
+.table-container {
+	padding-top: 40px;
+}
+.table th {
+	text-transform: uppercase;
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: -0.01rem;
+	padding-bottom: 0.2rem;
+}
+.table td {
+	height: 24px;
+}
+.table td input {
+	width: 100%;
+	background-color: transparent;
+	border: none;
+	padding: 0 5px;
+}
+.table td:nth-child(1) {
+	padding: 1px 3px;
+	width: 6%;
+}
+.table td:nth-child(1) div {
+	display: flex;
+	justify-content: center;
+	padding: 0 15px;
+	width: 100%;
+	border-radius: 2px;
+}
+.table td:nth-child(1) div input {
+	padding: 0;
+	font-size: 0.55rem;
+}
+.table td:nth-child(1) div input:nth-child(1),
+.table td:nth-child(1) div input:nth-child(2) {
+	width: 12.5px;
+	text-align: center;
+}
+.table td:nth-child(1) div input:nth-child(3) {
+	width: 20px;
+}
+.table td:nth-child(2),
+.table td:nth-child(3) {
+	width: 10%;
+}
+.table td:nth-child(4) {
+	width: 25%;
+}
+.table.table-color tr:nth-child(2n - 1) td:nth-child(1) div {
+	background-color: var(--table-light-grey);
+}
+.table.table-color tr:nth-child(2n) td:nth-child(1) div {
+	background-color: var(--main-white);
+}
+.panel .panel-footer {
+	padding-top: 5px;
+	font-size: 0.5rem;
+	font-weight: 800;
+	letter-spacing: -0.01rem;
+}
+
+.signature {
+	font-size: 0.65rem;
+	font-weight: 500;
+	letter-spacing: -0.05rem;
+	padding-top: 40px;
+	width: 30%;
+	text-align: center;
+}
+.signature .line {
+	display: block;
+	width: 100%;
+	height: 7.5px;
+	border-top: 1px dotted var(--apross-font-color);
+}
+
+.appross.footer {
+	margin-top: -60px;
+	width: 100%;
+	height: 150px;
+	padding: 0 58px 27px 58px;
+	display: flex;
+	justify-content: space-between;
+}
+.appross.footer p {
+	font-size: 0.95rem;
+	font-weight: 800;
+	letter-spacing: -0.01rem;
+	color: var(--main-white);
+}
+.appross.footer .schedule,
+.appross.footer .address,
+.appross.footer .contact {
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-end;
+}
