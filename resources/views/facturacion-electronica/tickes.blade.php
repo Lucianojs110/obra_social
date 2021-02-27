@@ -136,7 +136,7 @@
   <div class="p-lg " id="noimpr" >
       <div id="btncae">
          @if ($venta->cae==null)
-            <button  id="btn-sol-cae" class="btn btn-primary">Solicitar CAE</button>
+            <button  id="btn-sol-cae" class="btn btn-primary">Solicita CAE</button>
          @endif 
           <button type="button" class="btn btn-primary" onclick="javascript:window.print()"><i class="fa fa-print"></i> Imprimir</button>
       </div>

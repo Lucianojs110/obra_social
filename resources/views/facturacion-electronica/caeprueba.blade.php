@@ -283,7 +283,7 @@ $anio_posterior= $d1->format('Y');
                       @endphp
                     @foreach($qs as $det)
                           <tr>
-                            <td style="width: 100%; text-align: left" class="text-right"> {{$det->codigo_modulo}}</td>
+                            <td style="width: 20%; text-align: left" class="text-right"> {{$det->codigo_modulo}}</td>
                             <td style="width: 100%; text-align: left" class="text-right"> {{$det->nombre_pres}}</td>
                             <td style="width: 100%; text-align: center" class="text-right">{{$det->cantidad_solicitada}}</td>
                             <td style="width: 100%; text-align: center" class="text-right">$ {{$det->valor_modulo}}</td>
@@ -447,23 +447,21 @@ function solicitar_cae()
             url: "{{route('caesolicitud')}}",
             dataType: "json",
             data: {
-              /* cuit_obrasocial: $("#cuit_obrasocial").val(), 
-              comprobante: $("#comprobante").val(),  */      
+          
+              comprobante: $("#comprobante").val(),   
             },
             success: function(data) {
-                console.log(data);
+              alert('comprobante registrado')
               $("#cae").load(" #cae");
               $("#numero").load(" #numero");
               $("#btncae").load(" #btncae");
               $("#btn-cae").load(" #btn-cae");
-              /* toastr.success("Comprobante registrado") */
-              alert('comprobante registrado')
               console.log(data)
             },
             error:  function(data) {
-             /*  toastr.warning("Algo ha salido mal al conectarse al webserver") */
+             
               alert('comprobante NO registrado')
-              alert(data);
+              console.log(data)
               alert('No se realizo la operacion. Respuesta del servidor: '+data.responseJSON.message)
             },
            
