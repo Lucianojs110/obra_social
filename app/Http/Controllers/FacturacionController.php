@@ -328,46 +328,21 @@ $beneficiarios = Prestador::where('user_id', $user)
         $user = \Auth::user();
 
         
-        $tot = DB::table('prestacion')->where('activo', 1)
-        ->join('prestador','prestador.prestacion_id','=','prestacion.id')
-        ->join('users','users.id','=','prestador.user_id')
-        ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
-         ->select('prestacion.*', 
-                                DB::raw('COUNT(distinct prestacion.id) as id_prestacion'), 
-                                DB::raw('SUM(prestacion.valor_modulo) as total'))
-                               /*  ->groupBy(\DB::raw('id_prestacion'))) */
-                                ->get();
-                
-        
-
-        //dd($tot);
 
         $qss = DB::table('prestacion')->where('activo', 1)
-        ->select('prestacion.id','prestacion.*','prestador.*'/* ,'beneficiarios.*' */)
-        ->join('prestador','prestador.prestacion_id','=','prestacion.id')
-        ->join('users','users.id','=','prestador.user_id')
-        ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
-        ->distinct()
-        ->get();
+                    ->join('prestador','prestador.prestacion_id','=','prestacion.id')
+                    ->join('users','users.id','=','prestador.user_id')
+                    ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
+                    ->groupBy('prestacion.id')
+                    ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
+                    ->get();
+        /* dd($qss); */
 
-        $qs = DB::table('prestacion')
-        ->select(DB::raw('DISTINCT prestacion.id, COUNT(*) AS count_prestacion_id'),'prestacion.*','prestador.*','beneficiario.*')->where('activo', 1)
-            ->join('prestador','prestador.prestacion_id','=','prestacion.id')
-            ->join('users','users.id','=','prestador.user_id')
-            ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
-                                         ->groupBy('prestacion.id')
-                                         ->orderBy('count_prestacion_id', 'desc')
-                                         ->get();
 
-        
-       
-        dd($qs);
 
-       /*  $result2 = DB::select(DB::raw("SELECT id,valor_modulo FROM prestacion")); */
-
-       /*  dd($qs); */
+      
         return view('facturacion-electronica.caeprueba',[/* 'prestador_menu' => $prestador_menu, *//* 'qeryset' => $qeryset, */ 
-            'data' => $data , 'qs' => $qs ,'user'=> $user, 'certs' => $certs , 'tot'=>$tot]);
+            'data' => $data , 'qss' => $qss ,'user'=> $user, 'certs' => $certs ]);
     }
 
     public function consultarcuit(Request $request){

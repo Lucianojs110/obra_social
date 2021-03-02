@@ -281,17 +281,17 @@ $anio_posterior= $d1->format('Y');
                       @php
                           $sum=0;
                       @endphp
-                    @foreach($qs as $det)
+                    @foreach($qss as $det)
                           <tr>
                             <td style="width: 20%; text-align: left" class="text-right"> {{$det->codigo_modulo}}</td>
                             <td style="width: 100%; text-align: left" class="text-right"> {{$det->nombre_pres}}</td>
-                            <td style="width: 100%; text-align: center" class="text-right">{{$det->cantidad_solicitada}}</td>
+                            <td style="width: 100%; text-align: center" class="text-right">{{$det->cantidad}}</td>
                             <td style="width: 100%; text-align: center" class="text-right">$ {{$det->valor_modulo}}</td>
                             <td style="width: 100%; text-align: center" class="text-right">${{-- {{$det->descuento}} --}}</td>
-                            <td style="width: 100%; text-align: center">{{$det->valor_modulo * $det->cantidad_solicitada /* - $det->descuento */}}</td>
+                            <td style="width: 100%; text-align: center">{{$det->valor_modulo * $det->cantidad /* - $det->descuento */}}</td>
                           </tr>
                           @php
-                              $sum += $det->valor_modulo * $det->cantidad_solicitada;
+                              $sum += $det->valor_modulo * $det->cantidad;
                           @endphp
                      @endforeach
                           </tbody>
