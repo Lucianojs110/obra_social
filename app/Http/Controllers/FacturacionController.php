@@ -342,13 +342,26 @@ $beneficiarios = Prestador::where('user_id', $user)
 
         //dd($tot);
 
-        $qs = DB::table('prestacion')->where('activo', 1)
-       /*  ->select('prestacion.id','prestacion.*','prestador.*','beneficiario.cantidad_solicitada') */
+        $qss = DB::table('prestacion')->where('activo', 1)
+        ->select('prestacion.id','prestacion.*','prestador.*'/* ,'beneficiarios.*' */)
         ->join('prestador','prestador.prestacion_id','=','prestacion.id')
         ->join('users','users.id','=','prestador.user_id')
         ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
-       /*  ->distinct() */
+        ->distinct()
         ->get();
+
+        $qs = DB::table('prestacion')
+        ->select(DB::raw('DISTINCT prestacion.id, COUNT(*) AS count_prestacion_id'),'prestacion.*','prestador.*','beneficiario.*')->where('activo', 1)
+            ->join('prestador','prestador.prestacion_id','=','prestacion.id')
+            ->join('users','users.id','=','prestador.user_id')
+            ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
+                                         ->groupBy('prestacion.id')
+                                         ->orderBy('count_prestacion_id', 'desc')
+                                         ->get();
+
+        
+       
+        dd($qs);
 
        /*  $result2 = DB::select(DB::raw("SELECT id,valor_modulo FROM prestacion")); */
 
@@ -432,7 +445,7 @@ $beneficiarios = Prestador::where('user_id', $user)
 
             
             $options = [                    //options es un array con el CUIT (de la empresa que esta vendiendo)
-                'CUIT' => 20958931760,
+                'CUIT' => 20298464072,
                 'production' => True,
                 'cert' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filecrt,
                 'key' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey,
@@ -443,7 +456,8 @@ $beneficiarios = Prestador::where('user_id', $user)
             //ctes para probar
             $ImpTotal = 1;
             $afip = new Afip($options);
-            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, 11);
+            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, 6);
+            dd($last_voucher);
             $numComp = $last_voucher + 1;
             
             
