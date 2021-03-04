@@ -284,9 +284,7 @@ $anio_posterior= $d1->format('Y');
 						@endif
 
 						<th style="text-align: center">Clonar</th>
-						<th style="text-align: center">Id prestacion</th>
-						<th style="text-align: center">Id Benef</th>
-						<th style="text-align: center">Id Prestador</th>
+						
 						<th>Apellido y Nombre</th>
 
 						<th style="text-align: center">N° de Beneficiario</th>
@@ -346,10 +344,7 @@ $anio_posterior= $d1->format('Y');
 
 									@endif
 
-								<td style="text-align: center">{{ $id_presta }}</td>
-								<td style="text-align: center">{{ $benefval->id }}</td>
-
-								<td style="text-align: center">{{ $benefval->prestador_id }}</td>
+							
 							
 								<td>{{ $benefval->nombre . ' ' . $benefval->apellido }}</td>
 

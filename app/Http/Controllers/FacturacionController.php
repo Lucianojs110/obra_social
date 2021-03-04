@@ -113,21 +113,14 @@ class FacturacionController extends Controller
         $punto_v = $obj->ptovta;
         $filekey = $obj->certkey;
         $filecrt = $obj->certcrt;
-        /* dd($filekey,$filecrt); */
-        /* \Auth::user()->id */
-        /* dd(asset('storage/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey)); */
-        $options = [                    //options es un array con el CUIT (de la empresa que esta vendiendo)
+       
+        $options = [ //options es un array con el CUIT (de la empresa que esta vendiendo)
             'CUIT' => 20355003192,
             'production' => True,
-            /* 'cert' => asset('storage/'.\Auth::user()->id. '/'.$punto_v .'_'.$filecrt),
-            'key' => asset('storage/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey), */
+           
             'cert' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filecrt,
             'key' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey,
-            /* 'cert' => 'homo/certificado.crt',
-            'key' => 'homo/MiClavePrivada.key', */
-            
-            /* 'cert' => 'prueba_ws_47c10aeaf1fd8909.crt',
-            'key' => 'homo/MiClavePrivada.key', */
+           
             ];
 
             $afip = new Afip($options);
@@ -135,69 +128,23 @@ class FacturacionController extends Controller
             dd($voucher_types);
 
             $inscription = $afip->RegisterInscriptionProof->GetTaxpayerDetails('30519536435');
-            //dd($uss);
-
-            //dd($inscription);
+         
     }
 
 
     public function indexfactura( $prest_id, $os_id, $mes = null, $anio = null){
 
         $user = \Auth::user()->id;
-        $prestador_menu = \DB::select("SELECT obrasocial.nombre, obrasocial.id FROM obrasocial LEFT JOIN prestador on prestador.os_id = obrasocial.id WHERE prestador.user_id = " . $user . " GROUP BY obrasocial.id, obrasocial.nombre");
-
-        /* $beneficiario = Beneficiario::with('prestador')->with('prestacion')->get(); */
-        $prestador = Prestador::with('prestacion')->get();
-        /* dd($prestador); */
-
-        $beneficiario = Beneficiario::where('id_provincia', '=', '2')
-                                    ->with('prestador')/* ->with('prestacion') */
-                                    ->whereHas('prestador', function($q){        
-                                        /* $q->where('id', '=', '78'); */
-                                        $q->where('user_id', '=', \Auth::user()->id);
-                                    })->get();
-                                    
-
-                       
-                            
-        /* $prestador = Prestacion::with('prestador')->get(); 
-
-        $pres = Prestacion::join("prestador", "prestador.id", "=", "prestacion.id")
-                ->select("*")
-                ->get(); */
- /* ->where('beneficiario.updated_at', '=', \DB::raw('DATE_FORMAT(CAST(created_at as DATE), "%Y-%m")'), '<=', \Auth::user()->anio.'-'.\Auth::user()->mes) */
-        
-        /* $qeryset = DB::table('prestacion')
-                ->join("prestador", "prestador.prestacion_id", "=", "prestacion.id")
-                ->join("beneficiario", "beneficiario.prestador_id","=","prestador.id")
-                ->where('prestador.user_id', '=', \Auth::user()->id)
-               
-
-                ->select('prestacion.*','beneficiario.cantidad_solicitada','beneficiario.prestador_id','prestador.*')
-                ->get(); */
-  // Muestro beneficiarios
-
+    
             if($mes == null){
 
                 $mes = date('m');           
-
             }
-
-
 
             if($anio == null){
 
                 $anio = date('Y');           
-
             }
-
-
-
-        // Declaro objeto de usuario
-
-        $user = \Auth::user()->id;
-
-
 
         // Objeto Menu prestador
 
@@ -205,49 +152,41 @@ class FacturacionController extends Controller
 
 
 
-// Objeto prestaciones
+        // Objeto prestaciones
 
-$os_id = '2'; //Apross
-$prestacion = Prestador::where('user_id', $user)
-                ->where('os_id', $os_id)
-                ->with('prestacion')
-                ->get();
-
-
-
-//$beneficiario = Beneficiario::where('prestador_id', $prest_id)->with('prestador')->get();
+        $os_id = '2'; //Apross
+        $prestacion = Prestador::where('user_id', $user)
+            ->where('os_id', $os_id)
+            ->with('prestacion')
+            ->get();
 
 
+         // Traigo beneficiarios segun prestador y obra social
 
-// Traigo beneficiarios segun prestador y obra social
+        $os_id = '2'; //Apross
+        $beneficiarios = Prestador::where('user_id', $user)
+            ->where('os_id', $os_id)
+            ->with('prestacion', 'beneficiario.inasistencia', 'beneficiario.agregado', 'beneficiario.sesion')
+            ->orderBy('id', 'desc')
+            ->get();
 
-$os_id = '2'; //Apross
-$beneficiarios = Prestador::where('user_id', $user)
-                    ->where('os_id', $os_id)
-                    ->with('prestacion', 'beneficiario.inasistencia', 'beneficiario.agregado', 'beneficiario.sesion')
-                    ->orderBy('id', 'desc')
 
-                    ->get();
-/* dd($beneficiarios); */
+       $fechas = array();
+       $traditums = array();
 
-    $fechas = array();
-    $traditums = array();
+      foreach($beneficiarios as $beneficiario){
 
-    foreach($beneficiarios as $beneficiario){
+          foreach($beneficiario->beneficiario as $k => $benef){
 
-        foreach($beneficiario->beneficiario as $k => $benef){
+             $traditums[$benef->id] = Traditum::where('beneficiario_id', $benef->id)->where('mes', \Auth::user()->mes)->get()->toArray();
 
-            $traditums[$benef->id] = Traditum::where('beneficiario_id', $benef->id)->where('mes', \Auth::user()->mes)->get()->toArray();
-
-            if(empty($traditums[$benef->id])){
+                 if(empty($traditums[$benef->id])){
 
                 $traditums[$benef->id][0]['codigo'] = null;
 
                 $traditums[$benef->id][0]['id'] = null;
 
-            }
-
-        
+                    }
 
         // Sesiones
 
@@ -269,80 +208,47 @@ $beneficiarios = Prestador::where('user_id', $user)
 
         $fechas['total_agregado'][$benef->id] = count($benef->agregado);
 
-    }
+      }
 
- }
-
-// Sumario de fechas
-
-    $cuenta = array();
-
-    foreach ($fechas['total'] ?? [] as $key => $fecha) {
-
-        $cuenta[$key] = 0;
-
-        foreach($fecha as $k => $v){
-
-            $cuenta[$key]++;
-
-            $fecha_individual = explode('/', $v);
-
-            foreach($fechas['inasistencias'][$key] as $inasistencia){
-
-                $inasistencia_individual = explode('/', $inasistencia);	
-
-                if($fecha_individual[0].'/'.$fecha_individual[1].'/'.$fecha_individual[2] == $inasistencia_individual[0].'/'.$inasistencia_individual[1].'/'.$inasistencia_individual[2]){
-
-                    $cuenta[$key]--;
-
-                }
-
-            }			
-
-        }
-
-        $fechas['tope'][$key] = $cuenta;
-
-    }
-
-
+     }
 
         // Objeto Obra Social
 
         $obraSocial = ObraSocial::where('id', $os_id)->get();
-
         $data['beneficiarios'] = $beneficiarios;
-
         $data['obrasocial'] = $obraSocial;
-
         $data['prestador_menu'] = $prestador_menu;
-
         $data['prestacion'] = $prestacion;
-
         $data['traditums'] = $traditums;
-
         $data['fechas'] = $fechas;
-
         $certs = Certificados::with('users')->where('id_user', \Auth::user()->id)->get();
-        /* dd($certs); */
+ 
+       // Obtenemos la fecha del usuario ¿que onda esto?
         $user = \Auth::user();
 
-        
-
+        $d2 = new DateTime();
+        $d2->modify('-1 month');
+        $mes_anterior = $d2->format('m');
+        $anio_anterior = $d2->format('Y');
+     
+    
         $qss = DB::table('prestacion')->where('activo', 1)
                     ->join('prestador','prestador.prestacion_id','=','prestacion.id')
                     ->join('users','users.id','=','prestador.user_id')
                     ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
+                    ->whereMonth('prestador.created_at', '=', $mes_anterior)
+                    ->whereYear('prestador.created_at', '=', $anio_anterior)
                     ->groupBy('prestacion.id')
                     ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
                     ->get();
         /* dd($qss); */
 
-
-
+        //$fecha = new DateTime();
+        //$fecha->modify('first day of this month');
+        //$fechainicio =  $fecha->format('d/m/Y'); // imprime por ejemplo: 01/12/2012
+    
       
-        return view('facturacion-electronica.caeprueba',[/* 'prestador_menu' => $prestador_menu, *//* 'qeryset' => $qeryset, */ 
-            'data' => $data , 'qss' => $qss ,'user'=> $user, 'certs' => $certs ]);
+        return view('facturacion-electronica.caeprueba',['data' => $data , 'qss' => $qss ,'user'=> $user, 'certs' => $certs ]);
     }
 
     public function consultarcuit(Request $request){
@@ -353,21 +259,13 @@ $beneficiarios = Prestador::where('user_id', $user)
         $punto_v = $obj->ptovta;
         $filekey = $obj->certkey;
         $filecrt = $obj->certcrt;
-        /* dd($filekey,$filecrt); */
-        /* \Auth::user()->id */
-        /* dd(asset('storage/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey)); */
+        
         $options = [                    //options es un array con el CUIT (de la empresa que esta vendiendo)
             'CUIT' => 20355003192,
             'production' => True,
-            /* 'cert' => asset('storage/'.\Auth::user()->id. '/'.$punto_v .'_'.$filecrt),
-            'key' => asset('storage/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey), */
             'cert' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filecrt,
             'key' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey,
-            /* 'cert' => 'homo/certificado.crt',
-            'key' => 'homo/MiClavePrivada.key', */
-            
-            /* 'cert' => 'prueba_ws_47c10aeaf1fd8909.crt',
-            'key' => 'homo/MiClavePrivada.key', */
+           
             ];
 
             $afip = new Afip($options);
@@ -387,22 +285,16 @@ $beneficiarios = Prestador::where('user_id', $user)
     }
 
 
-
-
    public function caesolicitud(Request $request){
 
-    $tc = 0; 
-    $data = [];
+         $tc = 0; 
+        $data = [];
 
-    $obj = Certificados::with('users')->where('id_user', \Auth::user()->id)->first();
+        $obj = Certificados::with('users')->where('id_user', \Auth::user()->id)->first();
     
-    $punto_v = $obj->ptovta;
-    $filekey = $obj->certkey;
-    $filecrt = $obj->certcrt;
-    
-    
-        
-        
+         $punto_v = $obj->ptovta;
+         $filekey = $obj->certkey;
+         $filecrt = $obj->certcrt;
        
          //esta consulta me devuelve los 14 registros de las prestaciones
          $qs = DB::table('prestacion')->where('activo', 1)

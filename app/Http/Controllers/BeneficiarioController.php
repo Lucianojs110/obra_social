@@ -103,13 +103,9 @@ class BeneficiarioController extends Controller
         // Traigo beneficiarios segun prestador y obra social
 
         $beneficiarios = Prestador::where('user_id', $user)
-
          ->where('os_id', $os_id)
-
          ->with('prestacion', 'beneficiario.inasistencia', 'beneficiario.agregado', 'beneficiario.sesion')
-
          ->orderBy('id', 'desc')
-
 		 ->get();
 
 		 $fechas = array();
@@ -206,13 +202,14 @@ class BeneficiarioController extends Controller
 
         $data['fechas'] = $fechas;
 
-
-
+		
     	return view('beneficiario',[
 
     		'data' => $data
 
     	]);
+
+		
 
 	}
 

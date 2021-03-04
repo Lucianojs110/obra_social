@@ -26,42 +26,6 @@
 </div>
 </br>
 
-@php
-
-	$meses = ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'];
-
-
-
-	$anios = ['2020', '2021', '2022', '2023'];
-	$fecha_user = \Auth::user()->anio.'-'.\Auth::user()->mes;
-	$query2 ="SELECT id_ben FROM inactivos WHERE (DATE_FORMAT(CAST(fecha as DATE), \"%Y-%m\") <= \"".$fecha_user."\" AND fecha_fin IS NULL) OR (DATE_FORMAT(CAST(fecha as DATE), \"%Y-%m\") <= \"".$fecha_user."\" AND DATE_FORMAT(CAST(fecha_fin as DATE), \"%Y-%m\") > \"".$fecha_user."\")";
- 	$array_inactivos = \DB::select($query2);
-	$ids = array();
-
-foreach($array_inactivos as $key){
-	$ids[]=$key->id_ben;
-}
-
-@endphp
-<?php 
-if(Auth::user()->mes){
-	$date1 = new DateTime(Auth::user()->anio."-".Auth::user()->mes."-".date("d"));
-}else{
-	$date1 = new DateTime(Auth::user()->anio."-".date("m")."-".date("d"));
-}
-$date2 = new DateTime(date("Y-m-d"));
- 
-$provincia = DB::table('provincias')->select('id', 'provincia')->get();
-$d1 = new DateTime(Auth::user()->anio."-".Auth::user()->mes."-01");
-$d1->modify('+1 month');
-$d2 = new DateTime(Auth::user()->anio."-".Auth::user()->mes."-01");
-$d2->modify('-1 month');
-$mes_anterior = $d2->format('m');
-$anio_anterior = $d2->format('Y');
-$mes_posterior = $d1->format('m');
-$anio_posterior= $d1->format('Y');
-
-?>
 
 {{-- <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -69,91 +33,17 @@ $anio_posterior= $d1->format('Y');
 			<table data-page-length='20' class="table table-bordered table-condensed" id="example">
 				<thead>
 					<th>Id benef.</th>
-                    <th>Id prestador</th>
+          <th>Id prestador</th>
 					<th>Nombre</th>
 					<th>Nº afiliado </th>
-                    <th>Cod. Seguridad</th>
-                    <th>Cod. Modulo</th>
-                    <th>Cant. Solicitadas</th>
-                    <th>Valor</th>
-                    <th>Subtotal</th>
+          <th>Cod. Seguridad</th>
+          <th>Cod. Modulo</th>
+          <th>Cant. Solicitadas</th>
+          <th>Valor</th>
+          <th>Subtotal</th>
 					<th>TOTAL</th>
 					<th>Acciones</th>
-					
 				</thead>
-                @foreach($data['beneficiarios'] as $beneficiario)
-        
-                    <?php 
-        
-                      $codigo_prestacion = $beneficiario->prestacion[0]->codigo_modulo;
-
-                      $valor_modulo = $beneficiario->prestacion[0]->valor_modulo;
-        
-                      $planilla = $beneficiario->prestacion[0]->planilla;
-        
-                      $os_id = $beneficiario->os_id;
-        
-                      $prestador_id = $beneficiario->id;
-        
-                    ?>
-        
-                    @foreach($beneficiario->beneficiario as $key => $benefval)
-                      @if(!in_array($benefval->id,$ids))
-                      <tr class="beneficiarioBold" idBenef="{{$benefval->id}}" style="{{ (Session::has('ModificacionBeneficiario') && Session::get('ModificacionBeneficiario') == $benefval->id) ? 'font-weight:bold;' : ''}}">
-        
-                        @if(Auth::user()->role == 'Traslado')
-        
-                         
-        
-                        @endif
-        
-                      
-        
-                          @if($data['obrasocial'][0]->nombre == "OSECAC")
-        
-                           
-        
-                          @endif
-        
-        
-                        <td style="text-align: center">{{ $benefval->id }}</td>
-        
-                        <td style="text-align: center">{{ $benefval->prestador_id }}</td>
-                      
-                        <td>{{ $benefval->nombre . ' ' . $benefval->apellido }}</td>
-        
-                        <td style="text-align: center">{{ $benefval->numero_afiliado }}</td>
-        
-                        <td style="text-align: center">{{ $benefval->codigo_seguridad }}</td>
-        
-                        <td style="text-align: center">{{ $codigo_prestacion }} {!! $benefval->dependencia == 'Si' ? '<br>6501024' : '' !!}</td>
-        
-                        <td style="text-align: center">{{ $benefval->cantidad_solicitada }}</td>
-                        
-
-                        <td style="text-align: center">{{ $valor_modulo }}</td>
-
-                       @php
-                           
-                           $tot  = $valor_modulo * $benefval->cantidad_solicitada  ;
-                       @endphp
-
-                        <td style="text-align: center">{{ $tot }}</td>
-                          
-
-                        
-                        <td>{{ substr($benefval->notas,0,10).'...' }}</td>
-
-        
-                        
-        
-                        <td style="width: 200px">
-        
-                          <div class="btn-group">		
-                    @endif
-                    @endforeach
-        
-                    @endforeach
 			</table> --}}
 		</div>
        {{--  <form action=""> --}}
@@ -241,7 +131,7 @@ $anio_posterior= $d1->format('Y');
                @endphp
               <th WIDTH="500"  HEIGHT="50"> 
                 <div class="panel panel-default" style="padding:10px; margin-top:1px">
-                @foreach ($data['obrasocial'] as $ob)
+                  @foreach ($data['obrasocial'] as $ob)
                     Cliente:  {{$ob->nombre}}<br>
                   @if(/* $venta->cliente->num_documento */$num_documento=='0')
                     Cuit: {{$ob->cuit}}<br>
