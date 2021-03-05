@@ -45,6 +45,7 @@ class FacturacionController extends Controller
 
         /* dd($certs); */
         /* return view('facturacion-electronica.index',['prestador_menu' => $prestador_menu , 'certs' => $certs]);  */
+        return view('facturacion-electronica.index');
     }
 
     public function createCert(){
@@ -56,6 +57,11 @@ class FacturacionController extends Controller
         $cuit = str_replace("-","",$cadena_cuit);
 
         return view('facturacion-electronica.create',['prestador_menu' => $prestador_menu]);
+    }
+
+    public function create(){
+
+        return view('facturacion-electronica.create');
     }
 
     public function storeCert(Request $request){
@@ -241,7 +247,9 @@ class FacturacionController extends Controller
                     ->groupBy('prestacion.id')
                     ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
                     ->get();
-        /* dd($qss); */
+        
+        
+                     dd($qss);
 
         //$fecha = new DateTime();
         //$fecha->modify('first day of this month');
@@ -249,6 +257,50 @@ class FacturacionController extends Controller
     
       
         return view('facturacion-electronica.caeprueba',['data' => $data , 'qss' => $qss ,'user'=> $user, 'certs' => $certs ]);
+    }
+
+
+    public function consultafactura(Request $request){
+
+      
+
+        $year = $request->get('year');    
+        $mes = $request->get('mes');  
+        //$mes = '02';   
+        //$year = '2021';
+
+
+        $user = \Auth::user()->id;
+
+
+        $user = \Auth::user();          
+        $qss = DB::table('prestacion')->where('activo', 1)
+                    ->join('prestador','prestador.prestacion_id','=','prestacion.id')
+                    ->join('users','users.id','=','prestador.user_id')
+                    ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
+                    ->whereMonth('prestador.created_at', $mes)
+                    ->whereYear('prestador.created_at', $year)
+                    ->groupBy('prestacion.id')
+                    ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
+                    ->get();
+     
+         //dd($qss);
+
+        // foreach ($qss as $qs){
+
+         //               $data[] = [
+            
+         //                   'cantidad' => $qs->cantidad,
+                            
+          //              ];
+           //         }
+
+        return $qss;
+
+        
+
+            
+        
     }
 
     public function consultarcuit(Request $request){

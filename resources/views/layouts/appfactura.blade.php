@@ -153,7 +153,14 @@
                                 <span>Certificados</span>
                             </a>
                         </li>
-                        
+                    </li>
+                    <li class="treeview {{Request::is('dependencias', 'dependencias/*') ? 'active' : '' }}">
+                        <li>
+                            <a href="{{ action('FacturacionController@index') }}">
+                                <i class="fa fa-money-check-alt"></i>
+                                <span>Facturas</span>
+                            </a>
+                        </li>
                     </li>
 
                   {{--   <li class="treeview {{Request::is('showtree') ? 'active' : '' }}">

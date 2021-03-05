@@ -119,8 +119,8 @@ Route::post('/mensajes/update', 'MensajeController@update')->name('mensajes-upda
 Route::get('/mensajes/delete/{id}/{redir}', 'MensajeController@destroy')->name('mensajes-delete');
 
 
-// Facturacion Electronica
-/* Route::get('/facturacion/electronica', 'FacturacionElectronicaCertificadoController@index')->name('facturacion.electronica'); */
+// Facturacion Electronica certificados
+
 Route::post('/facturacion/electronica/certificados/store', 'FacturacionElectronicaCertificadoController@store')->name('facturacion.electronica.certificado.store');
 Route::post('/facturacion/electronica/certificados/key/store', 'FacturacionElectronicaCertificadoController@storeKey')->name('facturacion.electronica.key.store');
 Route::post('/facturacion/electronica/certificados/update', 'FacturacionElectronicaCertificadoController@update')->name('facturacion.electronica.update');
@@ -129,11 +129,10 @@ Route::post('/facturacion/electronica/certificados/generate', 'FacturacionElectr
 //Abm de cetificados de afip
 Route::resource('/certs', 'CertificadosController');
 
-// Facturacion Electronica2
-/* Route::get('/facturacion', 'FacturacionController@index2')->name('factura.electronica'); */
-/* Route::get('/certificados', 'FacturacionController@index')->name('factura.electronica'); */
-Route::get('/certificados/nuevo', 'FacturacionController@createCert')->name('factura.cert');
-Route::post('/certificados', 'FacturacionController@storeCert')->name('factura.store');
+// Facturacion Electronica
+
+Route::resource('facturacion', 'FacturacionController');
+Route::get('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura');
 
 
 Route::get('/fact', 'FacturacionController@facturaelectronica')->name('facturacion.ws');
@@ -146,7 +145,7 @@ Route::get('/pre', 'FacturacionController@indexfactura')->name('prefacturas');
 
 /* Route::post('/consultarcuit', 'FacturacionController@consultarcuit')->name('solicitarcae'); */
 Route::post('/caesolicitud', 'FacturacionController@caesolicitud')->name('caesolicitud');
-Route::get('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura');
+Route::post('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura');
 
 
 

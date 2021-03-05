@@ -1,119 +1,134 @@
-@extends('layouts.app', ['prestador' => $prestador_menu])
+@extends('layouts.appfactura')
+@section('contenido')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<section class="content">
+
+    <h3>Nueva Factura Electronica</h3>
+    <h4>Seleccione periodo a facturar</h4>
 
 
-@section('content')
-<div class="content-wrapper">
-    <section class="content-header">
-        <h1>
-            Carga Inicial de Certificados
-            <h4>
-                Prestador: {{ Auth::user()->name . ' ' . Auth::user()->surname }}
-            </h4>
-        </h1>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label>Año</label>
+            <select name="year" id="year" class="form-control">
+                <option value="0">Año</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
 
-        <div style="padding-top: 15px">
-            @include('includes.message')
+            </select>
         </div>
+        <div class="form-group col-md-3">
+            <label>Mes</label>
+            <select name="mes" id="mes" class="form-control">
+                <option value="0">Mes</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <br>
+            <button class="btn btn-primary" id="consultar" type="button"> Consultar</button>
+        </div>
+    </div>
 
-        <ol class="breadcrumb">
-            <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-            <li class="active">Certificados</li>
-        </ol>
-    </section>
 
-    <section class="content">
-        <div class="row">
-            <div class="col-12 col-md-8 col-lg-6">
-                <form action="{{ URL::action('FacturacionController@storeCert') }}" files="true" method="post" enctype="multipart/form-data">
-                    {!!csrf_field()!!}
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <table class="table table-striped table-bordered table-condensed table-hover">
+                <thead style="background-color: #A9D0F5">
+                    <th style="font-size: 15px; text-align:left">Cant.</th>
+                    <th style="font-size: 15px; text-align:left">Prestación.</th>
+                    <th style="font-size: 15px; text-align:left">Valor Modulo</th>
+                    <th style="font-size: 15px; text-align:left">Sub Total</th>
+                </thead>
+                <tbody id="bodytablafac">
+                </tbody>
+                <tbody>
+                    <th>TOTAL</th>
+             
                    
-                        {{-- <div class="form-group col-md-2">
-                            <label>Nombre del Proveedor</label>
-                            <input required type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" >
-                        </div> --}}
-                        
-                        <div class="col-sm-12 col-md-8 col-lg-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                Ingresar CERTIFICADO .key
-                                </div>
-                                <div class="panel-body">
-                                {{--  @if (isset($certs_info->cert_path))
-                                        <small class="text-success">Ya se encuentra cargado un certificado</small>
-                                    @endif --}}
-                                    <div class="form-control px-0" style="border: none;">
-                                        <div class="input-group">
-                                            <label class="btn btn-default btn-file col-md-12">
-                                             Elegir<input type="file" style="display: none;" name="archivokey">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-8 col-lg-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                Ingresar CERTIFICADO .Crt
-                                </div>
-                                <div class="panel-body">
-                                {{--  @if (isset($certs_info->cert_path))
-                                        <small class="text-success">Ya se encuentra cargado un certificado</small>
-                                    @endif --}}
-                                    <div class="form-control px-0" style="border: none;">
-                                        <div class="input-group">
-                                            <label class="btn btn-default btn-file col-md-12">
-                                             Elegir<input type="file" style="display: none;" name="archivocrt">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-8 col-lg-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                Ingresar un Punto de Venta habilitado por AFIP
-                                </div>
-                                <div class="panel-body">
-                                {{--  @if (isset($certs_info->cert_path))
-                                        <small class="text-success">Ya se encuentra cargado un certificado</small>
-                                    @endif --}}
-                                    <div class="form-control px-0" style="border: none;">
-                                        <div class="input-group">
-                                            <input type="number" name="pto_venta" id="pto_venta" placeholder="">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                
-                                        
-                                <input type="hidden" name="id_user" id="id_user" class="form-control" value="{{ Auth::user()->id }}">
-                                        
-                                   
-                            </div>
-                        </div>
-                        
-                        
-                        <div class="form-group col-md-2">
-                            <label>&nbsp;</label>
-                            <button type="submit" class="btn btn-success form-control">Guardar</button>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>&nbsp;</label>
-                            {{-- <a href="{{route('suppliers.index')}}" class="btn btn-primary form-control">Volver</a> --}}
-                        </div>
-                    
-                </form>
-            </div>
-        
-	
-			
-		
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <h4 id="total">$ 0.00</h4><input type="hidden" name="total_venta" id="total_venta">
+                    </th>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
-    </section>
+
+</section>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#consultar').click(function () {
+
+            $("#bodytablafac").html("");
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: "{{ route('consultafactura') }}",
+                dataType: "json",
+                data: {
+                    mes: $("#mes").val(),
+
+                    year: $("#year").val(),
+
+                },
+                success: function (data) {
+                    console.log(data);
+                    var total = 0;
+                    
+                    if(data.length==0){
+                        $("#bodytablafac").html("<h3>No hay items a facturar en este periodo</h3>");
+                    }else {
+                    
+                    for (i = 0; i < data.length; i++) { //cuenta la cantidad de registros
+        
+                        var nuevafila = "<tr><td>" +
+                            data[i].cantidad + "</td><td>" +
+                            data[i].nombre_pres + "</td><td>" +
+                            data[i].valor_modulo + "</td><td>" +
+                            ((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2) )) + "</td><td>"
+                        $("#bodytablafac").append(nuevafila)
+                         
+                         total = total + (parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2) );
+                        
+                    }
+
+                    $('#total').html(total);
+                       }
+                },
+                error: function () {
+                    alert('error');
+
+                }
+            });
+            return false;
+
+
+        });
+    });
+
+</script>
+
 @endsection
