@@ -22,7 +22,7 @@ class DetalleFactura extends Model
     ];
 
     public function factura(){
-        return $this->belongsTo('App\Factura', 'id_factura', 'id_factura');
+        return $this->belongsTo('App\Facturas', 'id_factura', 'id_factura');
     }
 
     
