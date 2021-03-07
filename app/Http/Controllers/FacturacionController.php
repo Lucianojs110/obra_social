@@ -143,7 +143,7 @@ class FacturacionController extends Controller
         $factura->fdesde = $fdesde;
         $factura->fhasta = $fhasta;
         $factura->fvtopago= $fvtopago2;
-        $factura->user_id = 22;
+        $factura->user_id = $iduser;
         $factura->os_id = 2;
         $factura->save();
 
@@ -253,126 +253,7 @@ class FacturacionController extends Controller
     }
 
 
-    public function indexfactura( $prest_id, $os_id, $mes = null, $anio = null){
-
-        $user = \Auth::user()->id;
     
-            if($mes == null){
-
-                $mes = date('m');           
-            }
-
-            if($anio == null){
-
-                $anio = date('Y');           
-            }
-
-        // Objeto Menu prestador
-
-        $prestador_menu = \DB::select("SELECT obrasocial.nombre, obrasocial.id FROM obrasocial LEFT JOIN prestador on prestador.os_id = obrasocial.id WHERE prestador.user_id = " . $user . " GROUP BY obrasocial.id, obrasocial.nombre");
-
-
-
-        // Objeto prestaciones
-
-        $os_id = '2'; //Apross
-        $prestacion = Prestador::where('user_id', $user)
-            ->where('os_id', $os_id)
-            ->with('prestacion')
-            ->get();
-
-
-         // Traigo beneficiarios segun prestador y obra social
-
-        $os_id = '2'; //Apross
-        $beneficiarios = Prestador::where('user_id', $user)
-            ->where('os_id', $os_id)
-            ->with('prestacion', 'beneficiario.inasistencia', 'beneficiario.agregado', 'beneficiario.sesion')
-            ->orderBy('id', 'desc')
-            ->get();
-
-
-       $fechas = array();
-       $traditums = array();
-
-      foreach($beneficiarios as $beneficiario){
-
-          foreach($beneficiario->beneficiario as $k => $benef){
-
-             $traditums[$benef->id] = Traditum::where('beneficiario_id', $benef->id)->where('mes', \Auth::user()->mes)->get()->toArray();
-
-                 if(empty($traditums[$benef->id])){
-
-                $traditums[$benef->id][0]['codigo'] = null;
-
-                $traditums[$benef->id][0]['id'] = null;
-
-                    }
-
-        // Sesiones
-
-        $inasistencias = $benef->inasistencia;
-
-        $adicionales = $benef->agregado;
-
-        $sesiones = $benef->sesion;
-
-        $cant_solicitada = $benef->tope;
-
-        $totalDias = count($sesiones);
-
-        $fechas['total'][$benef->id] = OSUtil::cuenta_dias($mes, $anio, $sesiones, $cant_solicitada);
-
-        $fechas['inasistencias'][$benef->id] = OSUtil::cuenta_inasistencias($mes, $anio, $sesiones, $inasistencias);
-
-        $fechas['agregado'][$benef->id] = OSUtil::cuenta_agregado($mes, $anio, $sesiones, $adicionales);
-
-        $fechas['total_agregado'][$benef->id] = count($benef->agregado);
-
-      }
-
-     }
-
-        // Objeto Obra Social
-
-        $obraSocial = ObraSocial::where('id', $os_id)->get();
-        $data['beneficiarios'] = $beneficiarios;
-        $data['obrasocial'] = $obraSocial;
-        $data['prestador_menu'] = $prestador_menu;
-        $data['prestacion'] = $prestacion;
-        $data['traditums'] = $traditums;
-        $data['fechas'] = $fechas;
-        $certs = Certificados::with('users')->where('id_user', \Auth::user()->id)->get();
- 
-       // Obtenemos la fecha del usuario ¿que onda esto?
-        $user = \Auth::user();
-
-        $d2 = new DateTime();
-        $d2->modify('-1 month');
-        $mes_anterior = $d2->format('m');
-        $anio_anterior = $d2->format('Y');
-     
-    
-        $qss = DB::table('prestacion')->where('activo', 1)
-                    ->join('prestador','prestador.prestacion_id','=','prestacion.id')
-                    ->join('users','users.id','=','prestador.user_id')
-                    ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
-                    ->whereMonth('prestador.created_at', '=', $mes_anterior)
-                    ->whereYear('prestador.created_at', '=', $anio_anterior)
-                    ->groupBy('prestacion.id')
-                    ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
-                    ->get();
-        
-        
-                     //dd($qss);
-
-        //$fecha = new DateTime();
-        //$fecha->modify('first day of this month');
-        //$fechainicio =  $fecha->format('d/m/Y'); // imprime por ejemplo: 01/12/2012
-    
-      
-        return view('facturacion-electronica.caeprueba',['data' => $data , 'qss' => $qss ,'user'=> $user, 'certs' => $certs ]);
-    }
 
 
     public function consultafactura(Request $request){
@@ -383,7 +264,7 @@ class FacturacionController extends Controller
         $mes = $request->get('mes');  
       
 
-        $user = \Auth::user()->id;
+        $userid = \Auth::user()->id;
 
 
         $user = \Auth::user();          
@@ -393,10 +274,11 @@ class FacturacionController extends Controller
                     ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
                     ->whereMonth('prestador.created_at', $mes)
                     ->whereYear('prestador.created_at', $year)
+                    ->where('prestador.user_id', $userid)
                     ->groupBy('prestacion.id')
                     ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
                     ->get();
-     
+         
         return $qss;  
     }
 
