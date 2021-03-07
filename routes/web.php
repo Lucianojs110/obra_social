@@ -144,7 +144,7 @@ Route::get('/pre', 'FacturacionController@indexfactura')->name('prefacturas');
 
 
 /* Route::post('/consultarcuit', 'FacturacionController@consultarcuit')->name('solicitarcae'); */
-Route::post('/caesolicitud', 'FacturacionController@caesolicitud')->name('caesolicitud');
+Route::get('/caesolicitud', 'FacturacionController@caesolicitud')->name('caesolicitud');
 Route::post('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura');
 
 

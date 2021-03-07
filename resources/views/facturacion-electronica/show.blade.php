@@ -3,7 +3,7 @@
 
 <h3 id="noimpr">Factura Electronica</h3>
 
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <table style="border: 1px solid black">
     <tbody>
         <tr>
@@ -37,7 +37,7 @@
         </tr>
     </tbody>
 </table>
-
+<input type="hidden" class="form-control" id="idfactura" value="{{$factura->id_factura }}">
 <table style="font-family: sans-serif">
     <tbody>
 
@@ -144,7 +144,6 @@
                         class="fa fa-print"></i> Imprimir</button>
                 {{-- <button  id="total"  onclick="calculatorTotal()" class="btn btn-primary">Total</button> --}}
             </div>
-            <input type="hidden" class="form-control" id="idventa" value="3{{-- {{$venta->idventa }} --}}">
         </div>
     </div>
 </div>
@@ -194,6 +193,7 @@
                 dataType: "json",
                 data: {
                     comprobante: $("#comprobante").val(),
+                    idfactura: $("#idfactura").val(),
                 },
                 success: function (data) {
                     alert('comprobante registrado')
