@@ -90,6 +90,7 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
+        $("#guardar").hide();
         $('#consultar').click(function () {
 
             $("#bodytablafac").html("");
@@ -126,6 +127,12 @@
 
                     $('#total').html('$'+total);
                        }
+
+                       if (data.length > 0) {
+                        $("#guardar").show();
+                       } else {
+                        $("#guardar").hide();
+                         }
                 },
                 error: function () {
                     alert('error');

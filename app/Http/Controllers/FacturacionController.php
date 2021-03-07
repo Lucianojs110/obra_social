@@ -170,7 +170,7 @@ class FacturacionController extends Controller
 
     }else{
        
-        Session::flash('message', 'El periodo de facturacion ya ha sido creado.');
+        Session::flash('message', 'El periodo de facturación ya ha sido creado.');
        
         return redirect('facturacion/create');
         
