@@ -5,7 +5,7 @@
 <section class="content">
 
 @if(Session::has('message'))
-     <p class="alert alert-warning">{{ Session::get('message') }}</p>
+     <p class="alert alert-warning" id="alert">{{ Session::get('message') }}</p>
 @endif
 
     <h3>Nueva Factura Electrónica</h3>
@@ -91,7 +91,10 @@
 <script>
     $(document).ready(function () {
         $("#guardar").hide();
+       
         $('#consultar').click(function () {
+
+            $("#alert").hide();
 
             $("#bodytablafac").html("");
 
@@ -108,7 +111,7 @@
 
                 },
                 success: function (data) {
-                    console.log(data);
+                    
                     var total = 0;
                     
                     if(data.length==0){
@@ -127,7 +130,7 @@
 
                     $('#total').html('$'+total);
                        }
-
+                       
                        if (data.length > 0) {
                         $("#guardar").show();
                        } else {
