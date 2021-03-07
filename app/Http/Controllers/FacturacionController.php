@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Vendor\afipsdk\src\Afip;
-/* use App\Lib\BarcodeI25; */
 use App\Certificados;
 use App\User;
 use App\Beneficiario;
@@ -16,16 +15,11 @@ use App\Sesion;
 use App\Feriado;
 use App\Helpers\OSUtil;
 use Carbon\Carbon;
-
-
+use App\Facturas;
+use App\DetalleFactura;
 use Auth;
-
-/* use App\OSUtil; */
-
 use Illuminate\Support\Facades\Storage;
 use DB;
-/* use Illuminate\Support\Facades\DB; */
-
 use SimpleXMLElement;
 use DateTime;  
 
@@ -33,19 +27,15 @@ class FacturacionController extends Controller
 {
     public function index(){
 
-        // Declaro objeto de usuario
-    	/* $user = \Auth::user()->id;
-        $uss = \Auth::user();
+        $user = \Auth::user()->id;
+            	
+        $factura = DB::table('facturas as f')
+        ->join('obrasocial as os','os.id', '=','f.os_id')
+        ->join('users as u','u.id', '=','f.user_id')
+        ->where('f.user_id','=',  \Auth::user()->id)
+        ->get();
 
-    	// Objeto Menu prestador
-        $prestador_menu = \DB::select("SELECT obrasocial.nombre, obrasocial.id FROM obrasocial LEFT JOIN prestador on prestador.os_id = obrasocial.id WHERE prestador.user_id = " . $user . " GROUP BY obrasocial.id, obrasocial.nombre");
-        
-        $certs = Certificados::with('users')->where('id_user', \Auth::user()->id)->get();
-
-
-        /* dd($certs); */
-        /* return view('facturacion-electronica.index',['prestador_menu' => $prestador_menu , 'certs' => $certs]);  */
-        return view('facturacion-electronica.index');
+        return view('facturacion-electronica.index', [ 'factura' => $factura]);
     }
 
     public function createCert(){
@@ -62,6 +52,112 @@ class FacturacionController extends Controller
     public function create(){
 
         return view('facturacion-electronica.create');
+    }
+
+    public function show($id)
+    {
+        
+        $iduser = \Auth::user()->id;
+        
+        $user = DB::table('users as u')
+        ->where('id','=', $iduser)
+        ->get();
+
+        $facturas = DB::table('facturas as d')
+        ->where('id_factura','=', $id)
+        ->get();
+
+
+        $obrasocial = DB::table('obrasocial as o')
+        ->where('id','=',$facturas[0]->os_id)
+        ->get();
+
+        $detalle = DB::table('detalle_factura as d')
+        ->where('id_factura','=', $id)
+        ->get();
+
+        return view ('facturacion-electronica.show', ['obrasocial'=>$obrasocial, 'user'=>$user, 'detalle'=>$detalle, 'facturas'=>$facturas]);
+    }
+
+
+    public function store(Request $request){
+
+        $date = Carbon::now('America/Argentina/Buenos_Aires');
+        $date2 = $date->format('Ymd');
+        $ImpTotal = $request->get('total_factura');
+        $ImpNeto = $ImpTotal/1.21;
+        $ImpNeto = number_format((float)$ImpNeto, 2, '.', '');
+        $ImpIVA = $ImpTotal - $ImpNeto;
+        $ImpIVA = number_format((float)$ImpIVA, 2, '.', '');
+        
+        $year =  $request->get('year');
+        $mes =  $request->get('mes');
+        $fdesde = $year.'-'.$mes.'-01';
+        $fhasta = $year.'-'.$mes.'-01';
+        $fhasta = new DateTime($fhasta);
+        $fhasta->modify('last day of this month');
+        $fhasta->format('Y/m/d');
+        
+        $fvtopago = $year.'-'.$mes.'-15';
+        $fvtopago1 = date_create($fvtopago);
+        date_add($fvtopago1, date_interval_create_from_date_string("1 months"));
+        $fvtopago2 =  date_format($fvtopago1,"Y-m-d");
+
+
+        $iduser = \Auth::user()->id;
+        
+        $user = DB::table('users as u')
+        ->where('id','=', $iduser)
+        ->get();
+
+        if($user[0]->condicion_iva=='Responsable Inscripto')
+        {
+            $tipoCbteNumero = 6;
+        }else if ($user[0]->condicion_iva=='Monotributo')
+        {
+            $tipoCbteNumero = 11;
+        }
+
+        
+        $to = $request->get('total_factura');
+        $factura = new Facturas;
+        $factura->cbteFch= $date2;
+        $factura->tipoCbteNumero = $tipoCbteNumero;
+        $factura->docTipo= 80;
+        $factura->docNro= '0';
+        $factura->impTotal = $request->get('total_factura');
+        $factura->impNeto= $ImpNeto;
+        $factura->impIVA= $ImpIVA;
+        $factura->fdesde = $fdesde;
+        $factura->fhasta = $fhasta;
+        $factura->fvtopago= $fvtopago2;
+        $factura->user_id = 22;
+        $factura->os_id = 2;
+        $factura->save();
+
+        $cantidad = request('cantidad');
+        $nombre_pres = request('nombre_pres');
+        $valor_modulo= request('valor_modulo');
+        $subtotal = request('subtotal');
+
+        $cont = 0;
+        
+        while($cont < count($nombre_pres)){
+           $detalle = new DetalleFactura();
+           $detalle->id_factura = $factura->id_factura;
+           $detalle->cantidad = $cantidad[$cont];
+           $detalle->nombre_prestacion= $nombre_pres[$cont];
+           $detalle->valor_modulo = $valor_modulo[$cont];
+           $detalle->subtotal = $subtotal[$cont];
+           $detalle->save();
+           $cont=$cont+1;
+
+        }
+  
+    
+        return redirect('/facturacion');
+       
+
     }
 
     public function storeCert(Request $request){
@@ -249,7 +345,7 @@ class FacturacionController extends Controller
                     ->get();
         
         
-                     dd($qss);
+                     //dd($qss);
 
         //$fecha = new DateTime();
         //$fecha->modify('first day of this month');
@@ -266,9 +362,7 @@ class FacturacionController extends Controller
 
         $year = $request->get('year');    
         $mes = $request->get('mes');  
-        //$mes = '02';   
-        //$year = '2021';
-
+      
 
         $user = \Auth::user()->id;
 
@@ -284,23 +378,7 @@ class FacturacionController extends Controller
                     ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
                     ->get();
      
-         //dd($qss);
-
-        // foreach ($qss as $qs){
-
-         //               $data[] = [
-            
-         //                   'cantidad' => $qs->cantidad,
-                            
-          //              ];
-           //         }
-
-        return $qss;
-
-        
-
-            
-        
+        return $qss;  
     }
 
     public function consultarcuit(Request $request){
@@ -324,8 +402,6 @@ class FacturacionController extends Controller
             $voucher_types = $afip->ElectronicBilling->GetVoucherTypes();
 
             $cuit_cliente_osecac = $request->input('cuit');
-
-
             /* $aspross_cuit = 30999253675; */
 
             $inscription = $afip->RegisterInscriptionProof->GetTaxpayerDetails($cuit_cliente_osecac);

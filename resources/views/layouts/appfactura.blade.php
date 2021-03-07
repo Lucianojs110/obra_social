@@ -40,10 +40,44 @@
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('adminfact/plugins/DataTables-1.10.16/css/jquery.dataTables.min.css') }}" />
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('adminfact/plugins/bootstrap-fileinput-3540936/css/fileinput.min.css') }}"/>
     @stack('styles')
+
+    <style type="text/css" media="print">
+     @media print {
+     #noimpr {display:none;}
+      };
+
+      .table-fixed{
+        width: 100%;
+        background-color: #f3f3f3;
+       tbody{
+       height:200px;
+    overflow-y:auto;
+    width: 100%;
+    }
+  thead,tbody,tr,td,th{
+    display:block;
+  }
+  tbody{
+    td{
+      float:left;
+    }
+  }
+  thead {
+    tr{
+      th{
+        float:left;
+       background-color: #f39c12;
+       border-color:#e67e22;
+      }
+    }
+  }
+}
+
+    </style>
 </head>
 
 
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini" >
     <div class="wrapper">
 
         <header class="main-header">
@@ -215,6 +249,11 @@
                                         @Yield ('contenido')
                                         <!--Fin Contenido-->
                                     </div>
+                                    <div class="col-md-8">
+                                        <!--Contenido-->
+                                        @Yield ('contenidofac')
+                                        <!--Fin Contenido-->
+                                    </div>
                                 </div>
 
                             </div>
@@ -234,7 +273,13 @@
     </div>
     <!-- /.content-wrapper -->
     <!--Fin-Contenido-->
-    <footer class="main-footer">
+
+
+
+     
+
+
+    <footer class="main-footer" id="noimpr">
         <div class="pull-right hidden-xs">
             <strong>Copyright &copy; {{date('Y')}} Porcal Adrian Martin</strong> .
         </div>

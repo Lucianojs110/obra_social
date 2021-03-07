@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleFactura extends Model
 {
     protected $table = 'detalle_factura';
-
+    public $timestamps = false;
     protected $primaryKey = 'id_detalle';
 
 

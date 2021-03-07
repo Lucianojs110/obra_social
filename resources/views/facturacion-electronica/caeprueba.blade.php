@@ -27,41 +27,6 @@
 </br>
 
 
-{{-- <div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<div class="table-responsive">
-			<table data-page-length='20' class="table table-bordered table-condensed" id="example">
-				<thead>
-					<th>Id benef.</th>
-          <th>Id prestador</th>
-					<th>Nombre</th>
-					<th>Nº afiliado </th>
-          <th>Cod. Seguridad</th>
-          <th>Cod. Modulo</th>
-          <th>Cant. Solicitadas</th>
-          <th>Valor</th>
-          <th>Subtotal</th>
-					<th>TOTAL</th>
-					<th>Acciones</th>
-				</thead>
-			</table> --}}
-		</div>
-       {{--  <form action=""> --}}
-        {{-- <div class="col-md-2 form-group">
-            <button type="button" onclick="calculatorTotal()"> Total</button>
-        </div> --}}
-        {{-- </form> --}}
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <div class="col-md-8"  style="background-color: #fff; margin-left:30px;  padding:20px">
-            <table border="0">
-            <tbody>
-              <tr>
-              <th WIDTH="400" HEIGHT="80" style="text-align: center"> 
-                 {{-- <img src="https://st.depositphotos.com/1053653/2491/i/950/depositphotos_24917717-stock-photo-logo-company-design-isea-logo.jpg"   height="90%" width="60%"> --}}
-                 {{-- {{asset('imagenes/config/'.$config->imagen)}} --}}
-                {{--  @foreach ($user as $u) --}}
-                   <h5>Razon Social: {{$user->surname}} {{$user->name}}</h5>
-                {{--  @endforeach --}}
                  
               </th>
               @php

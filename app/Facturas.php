@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Facturas extends Model
 {
     protected $table = 'facturas';
-
     protected $primaryKey = 'id_factura';
+    public $timestamps = false;
 
 
     protected $fillable =[
@@ -37,4 +37,8 @@ class Facturas extends Model
 
        
     ];
+
+    public function User(){
+        return $this->belongsTo('App\User', 'id', 'user_id');
+    }
 }

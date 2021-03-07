@@ -7,7 +7,8 @@
     <h3>Nueva Factura Electrónica</h3>
     <h4>Seleccione período a facturar</h4>
 
-
+    <form action="{{url('facturacion')}}" method="POST" enctype="multipart/form-data">
+    @csrf
     <div class="row">
         <div class="form-group col-md-2">
             <label>Año</label>
@@ -63,6 +64,7 @@
                     <th style="font-size: 18px; text-align:right">TOTAL:</th>
                     <th style="font-size: 18px; text-align:left">
                         <span id="total" >$ 0.00</span>
+                        <input type="hidden" name="total_factura" id="total_factura">
                     </th>
                 </tfoot>
             </table>
@@ -71,9 +73,10 @@
 
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <button class="btn btn-primary" id="consultar" type="button"> Facturar</button>
+        <button  class="btn btn-primary" id="guardar" type="submit"> Facturar</button>
         </div>
     </div>
+    </form>
 
 
 
@@ -96,7 +99,6 @@
                 dataType: "json",
                 data: {
                     mes: $("#mes").val(),
-
                     year: $("#year").val(),
 
                 },
@@ -111,15 +113,11 @@
                     
                     for (i = 0; i < data.length; i++) { //cuenta la cantidad de registros
         
-                        var nuevafila = "<tr><td>" +
-                            data[i].cantidad + "</td><td>" +
-                            data[i].nombre_pres + "</td><td>" +
-                            data[i].valor_modulo + "</td><td>" +
-                            ((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2) )) + "</td></tr>"
+                        var nuevafila = '<tr><td><input type="hidden" name="cantidad[]" value="'+data[i].cantidad+'">' +data[i].cantidad+ '</td><td><input type="hidden" name="nombre_pres[]" value="'+data[i].nombre_pres+'">' +data[i].nombre_pres + '</td><td><input type="hidden" name="valor_modulo[]" value="'+data[i].valor_modulo+'">' + data[i].valor_modulo + '</td><td><input type="hidden" name="subtotal[]" value="'+((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2)))+'">' +((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2) ))+'</td></tr>'
                         $("#bodytablafac").append(nuevafila)
                          
                          total = total + (parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2) );
-                        
+                         $('#total_factura').val(total);
                     }
 
                     $('#total').html('$'+total);
