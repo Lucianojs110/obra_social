@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Storage;
 use DB;
 use SimpleXMLElement;
 use DateTime;  
+use Illuminate\Support\Facades\Session;
+
 
 class FacturacionController extends Controller
 {
@@ -95,8 +97,18 @@ class FacturacionController extends Controller
         $fdesde = $year.'-'.$mes.'-01';
         $fhasta = $year.'-'.$mes.'-01';
         $fhasta = new DateTime($fhasta);
+        $fdesde = new DateTime($fdesde);
         $fhasta->modify('last day of this month');
         $fhasta->format('Y/m/d');
+
+        $user = \Auth::user()->id;
+            	
+        $factura = DB::table('facturas as f')
+        ->where('f.user_id','=',  \Auth::user()->id)
+        ->where('f.fdesde','=', $fdesde  )
+        ->get();
+
+        if (count($factura) == 0) {
         
         $fvtopago = $year.'-'.$mes.'-15';
         $fvtopago1 = date_create($fvtopago);
@@ -154,8 +166,15 @@ class FacturacionController extends Controller
 
         }
   
-    
         return redirect('/facturacion');
+
+    }else{
+       
+        Session::flash('message', 'El periodo de facturacion ya ha sido creado.');
+       
+        return redirect('facturacion/create');
+        
+    }
        
 
     }

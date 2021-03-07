@@ -4,6 +4,10 @@
 
 <section class="content">
 
+@if(Session::has('message'))
+     <p class="alert alert-warning">{{ Session::get('message') }}</p>
+@endif
+
     <h3>Nueva Factura Electrónica</h3>
     <h4>Seleccione período a facturar</h4>
 
