@@ -49,7 +49,7 @@
                 {{ $newDate = date("d/m/Y", strtotime($factura->fhasta )) }}
             <th WIDTH="300" style="padding-left:10px;">
                 Vencimiento pago:
-                {{ $newDate = date("d/m/Y", strtotime($factura->fvtopago)) }}
+                {{ $newDate = date("d/m/Y", strtotime($factura->fvtopag)) }}
             </th>
 
         </tr>

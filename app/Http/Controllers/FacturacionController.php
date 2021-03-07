@@ -142,7 +142,7 @@ class FacturacionController extends Controller
         $factura->impIVA= $ImpIVA;
         $factura->fdesde = $fdesde;
         $factura->fhasta = $fhasta;
-        $factura->fvtopago= $fvtopago2;
+        $factura->fvtopag= $fvtopago2;
         $factura->user_id = $iduser;
         $factura->os_id = 2;
         $factura->save();
