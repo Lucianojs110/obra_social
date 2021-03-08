@@ -26,7 +26,7 @@ class Facturas extends Model
         'impIVA',
         'impTotal',
         'cbteAsoc',
-        'codigoBarra',
+        'codigoQr',
         'servicios',
         'concepto',
         'fdesde',

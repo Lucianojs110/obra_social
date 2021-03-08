@@ -110,9 +110,8 @@ class FacturacionController extends Controller
 
         if (count($factura) == 0) {
         
-        $fvtopago = $year.'-'.$mes.'-15';
-        $fvtopago1 = date_create($fvtopago);
-        date_add($fvtopago1, date_interval_create_from_date_string("1 months"));
+        
+        $fvtopago1 = date_create($date);
         $fvtopago2 =  date_format($fvtopago1,"Y-m-d");
 
 
@@ -136,7 +135,7 @@ class FacturacionController extends Controller
         $factura->cbteFch= $date2;
         $factura->tipoCbteNumero = $tipoCbteNumero;
         $factura->docTipo= 80;
-        $factura->docNro= '0';
+        $factura->docNro= '30999253675';
         $factura->impTotal = $request->get('total_factura');
         $factura->impNeto= $ImpNeto;
         $factura->impIVA= $ImpIVA;
@@ -166,7 +165,7 @@ class FacturacionController extends Controller
 
         }
   
-        return redirect('/facturacion');
+        return redirect('/facturacion/'.$factura->id_factura);
 
     }else{
        
@@ -316,7 +315,7 @@ class FacturacionController extends Controller
 
    public function caesolicitud(Request $request){
 
-         $tc = 0; 
+        $tc = 0; 
         $data = [];
 
         $obj = Certificados::with('users')->where('id_user', \Auth::user()->id)->first();
@@ -336,10 +335,23 @@ class FacturacionController extends Controller
          
 
         $user_id=\Auth::user()->id;
-       
+        
+        $id_factura = $request->get('idfactura');
+            /* $id_factura = 1; *///esto borrar despues es solo para probar
+            $facturas = DB::table('facturas as d')
+                ->where('id_factura','=', $id_factura)
+                ->get();
+
+            foreach($facturas as $f){
+                $fechaD = $f->fdesde;
+                $fechaH = $f->fhasta;
+                $fechaVtoPag = $f->fvtopag;
+                $tipoCbteNumero = $f->tipoCbteNumero;
+                
+            }
     
 
-        $tipo_comprob = 'Factura B';
+     
 
             
             $options = [                    //options es un array con el CUIT (de la empresa que esta vendiendo)
@@ -350,14 +362,14 @@ class FacturacionController extends Controller
                 ];
         
 
-        if($tipo_comprob == 'Factura B'){
+        if($tipoCbteNumero == '6'){
             //ctes para probar
-            $cbtetipo = 6;
+        
             $ImpTotal = 1;
             $afip = new Afip($options);
-            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, $cbtetipo);
-            $info = $afip->ElectronicBilling->GetVoucherInfo(1 ,$punto_v , $cbtetipo);
-            dd($info);
+            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, $tipoCbteNumero);
+            $info = $afip->ElectronicBilling->GetVoucherInfo(1 ,$punto_v , $tipoCbteNumero);
+           
             $numComp = $last_voucher + 1;
             
             
@@ -375,18 +387,9 @@ class FacturacionController extends Controller
 
             $date = Carbon::now('America/Argentina/Buenos_Aires');
             $date2 = $date->format('Ymd');
+            $dateqr = $date->format('Y-m-d');
 
-            $id_factura = $request->get('idfactura');
-            /* $id_factura = 1; *///esto borrar despues es solo para probar
-            $facturas = DB::table('facturas as d')
-                ->where('id_factura','=', $id_factura)
-                ->get();
-
-            foreach($facturas as $f){
-                $fechaD = $f->fdesde;
-                $fechaH = $f->fhasta;
-                $fechaVtoPag = $f->fvtopag;
-            }
+           
 
             
             $fechaDesde = date('Ymd', strtotime($fechaD));
@@ -399,7 +402,7 @@ class FacturacionController extends Controller
             $data = array(
                 'CantReg' 	=> 1,  // Cantidad de comprobantes a registrar
                 'PtoVta' 	=> $punto_v,  // Punto de venta
-                'CbteTipo' 	=> $cbtetipo,  // Tipo de comprobante (ver tipos disponibles) 
+                'CbteTipo' 	=> $tipoCbteNumero,  // Tipo de comprobante (ver tipos disponibles) 
                 'Concepto' 	=> 2,  // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
                 "FchServDesde" => $fechaDesde,
                 "FchServHasta" => $fechaHasta,
@@ -431,43 +434,34 @@ class FacturacionController extends Controller
             
             $cae=$res['CAE']; //CAE asignado el comprobante
             $vtocae = $res['CAEFchVto']; //Fecha de vencimiento del CAE (yyyy-mm-dd)
+        
+        
+            $factura= Facturas::find($id_factura);
+            $factura->caeNum = $cae;
+            $factura->caeFvto = $vtocae;
+            $factura->nroCbte = str_pad($punto_v, 4, "0", STR_PAD_LEFT).'-'.str_pad($numComp, 8, "0", STR_PAD_LEFT);
+            
+
+            $data = '{"ver":1,"fecha":'.$dateqr.',"cuit":'.$cuit_emisor.',"ptoVta":'.$punto_v.',"tipoCmp":'.$tipoCbteNumero.',"nroCmp":'.$numComp.',"importe":'.$ImpTot.',"moneda":"PES","ctz":1,"tipoDocRec":80,"nroDocRec":'.$cuit_os.',"tipoCodAut":"E","codAut":'.$cae.'}';
+            $data64 = "https://www.afip.gob.ar/fe/qr/?p=".base64_encode($data);
+            $factura->codigoQr = $data64;
+            $factura->save();
+        
+        
             return (["res"=>$res]);
 
-            
-            
-                    
-
-                    $cbteFch = date("Y-m-d H:i:s");
-                    $tipoCbteNum = $cbtetipo;
-                    $nroCbte = $punto_v . "-" . str_pad($valfac, 8, "0", STR_PAD_LEFT);
-                    $caeNum = $result['CAE']; 
-                    $caeFvtoo = $result['CAEFchVto'];
-                    $docTipo = $doc_t;// CUIT 80 o 99 cf
-                    $docNro = $valor_cuit_cuil_dni;
-                    $nombreRS = $cond_iva; //CF RI
-                    $tipoPago = $cond_venta;
-                    $impNeto = $neto_gravado;
-                    $impIVA = $iva_21;
-                    $impTotal = $total ;
-                    $cbteAsoc = '0';
-                    $codigoBarra = $codigo_barra_final;
-                    $servicios = $request->input('prod_servicios');
-                    $concepto = 'NULL';
-                    $FchServDesde = $request->input('FchServDesde');
-                    $FchServHasta = $request->input('FchServHasta');
-                    $FchVtoPago = $request->input('FchVtoPago');
-                        DB::insert('insert into afip (cbteFch, tipoCbteNumero, nroCbte, caeNum, caeFvto, docTipo, docNro, nombreRS, tipoPago, impNeto, impIVA, impTotal, cbteAsoc, codigoBarra, servicios ,concepto, fdesde, fhasta, fvtopag) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?)', 
-                                        [$cbteFch ,$tipoCbteNum, $nroCbte, $cae, $vtocae, $docTipo, $docNro, $nombreRS, $tipoPago, $impNeto, $impIVA, $impTotal, $cbteAsoc, $codigoBarra, $servicios ,$concepto , $FchServDesde , $FchServHasta, $FchVtoPago ]);
+        
+                  
         }
                 
-        if($tipo_comprob == 'Factura C'){
-            //ctes para probar
-            $cbtetipo = 11;
+        if($tipoCbteNumero == '11'){
+            
+           
             $ImpTotal = 1;
             $afip = new Afip($options);
-            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, $cbtetipo);
-            $info = $afip->ElectronicBilling->GetVoucherInfo(1 ,$punto_v , $cbtetipo);
-            dd($info);
+            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, $tipoCbteNumero);
+            $info = $afip->ElectronicBilling->GetVoucherInfo(1 ,$punto_v , $tipoCbteNumero);
+            
             $numComp = $last_voucher + 1;
             
             
@@ -485,18 +479,9 @@ class FacturacionController extends Controller
 
             $date = Carbon::now('America/Argentina/Buenos_Aires');
             $date2 = $date->format('Ymd');
+            $dateqr = $date->format('Y-m-d');
 
-            $id_factura = $request->get('idfactura');
-            /* $id_factura = 1; *///esto borrar despues es solo para probar
-            $facturas = DB::table('facturas as d')
-                ->where('id_factura','=', $id_factura)
-                ->get();
-
-            foreach($facturas as $f){
-                $fechaD = $f->fdesde;
-                $fechaH = $f->fhasta;
-                $fechaVtoPag = $f->fvtopag;
-            }
+            
 
             
             $fechaDesde = date('Ymd', strtotime($fechaD));
@@ -509,7 +494,7 @@ class FacturacionController extends Controller
             $data = array(
                 'CantReg' 	=> 1,  // Cantidad de comprobantes a registrar
                 'PtoVta' 	=> $punto_v,  // Punto de venta
-                'CbteTipo' 	=> $cbtetipo,  // Tipo de comprobante (ver tipos disponibles) 
+                'CbteTipo' 	=> $tipoCbteNumero,  // Tipo de comprobante (ver tipos disponibles) 
                 'Concepto' 	=> 2,  // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
                 "FchServDesde" => $fechaDesde,
                 "FchServHasta" => $fechaHasta,
@@ -519,21 +504,14 @@ class FacturacionController extends Controller
                 'CbteDesde' 	=> $numComp,  // Número de comprobante o numero del primer comprobante en caso de ser mas de uno
                 'CbteHasta' 	=> $numComp,  // Número de comprobante o numero del último comprobante en caso de ser mas de uno
                 'CbteFch' 		=> intval($date2), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
-                'ImpTotal' 	=> $ImpTot, // Importe total del comprobante
+                'ImpTotal' 	=> $ImpTotal, // Importe total del comprobante
                 'ImpTotConc' 	=> 0,   // Importe neto no gravado
-                'ImpNeto' 	=> $ImpNeto, // Importe neto gravado
+                'ImpNeto' 	=> $ImpTotal, // Importe neto gravado
                 'ImpOpEx' 	=> 0,   // Importe exento de IVA
-                'ImpIVA' 	=> $ImpIVA,  //Importe total de IVA
+                'ImpIVA' 	=> 0,  //Importe total de IVA
                 'ImpTrib' 	=> 0,   //Importe total de tributos
                 'MonId' 	=> 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
                 'MonCotiz' 	=> 1,     // Cotización de la moneda usada (1 para pesos argentinos)
-                'Iva' 		=> array( // (Opcional) Alícuotas asociadas al comprobante
-                    array(
-                        'Id' 		=> 5, // Id del tipo de IVA (5 para 21%)(ver tipos disponibles) 
-                        'BaseImp' 	=> $ImpNeto, // Base imponible
-                        'Importe' 	=> $ImpIVA // Importe 
-                    )
-                ),  
                 
             );
             
@@ -541,33 +519,24 @@ class FacturacionController extends Controller
             
             $cae=$res['CAE']; //CAE asignado el comprobante
             $vtocae = $res['CAEFchVto']; //Fecha de vencimiento del CAE (yyyy-mm-dd)
+            
+            $factura= Facturas::find($id_factura);
+            $factura->caeNum = $cae;
+            $factura->caeFvto = $vtocae;
+            $factura->nroCbte = str_pad($punto_v, 4, "0", STR_PAD_LEFT).'-'.str_pad($numComp, 8, "0", STR_PAD_LEFT);
+            
+
+            $data = '{"ver":1,"fecha":'.$dateqr.',"cuit":'.$cuit_emisor.',"ptoVta":'.$punto_v.',"tipoCmp":'.$tipoCbteNumero.',"nroCmp":'.$numComp.',"importe":'.$ImpTot.',"moneda":"PES","ctz":1,"tipoDocRec":80,"nroDocRec":'.$cuit_os.',"tipoCodAut":"E","codAut":'.$cae.'}';
+            $data64 = "https://www.afip.gob.ar/fe/qr/?p=".base64_encode($data);
+            $factura->codigoQr = $data64;
+            $factura->save();
+            
+            
             return (["res"=>$res]);
 
             
             
-                    $tc = 11 ; //factura C
-
-                    $cbteFch = date("Y-m-d H:i:s");
-                    $tipoCbteNum = $tc;
-                    $nroCbte = $punto_v . "-" . str_pad($valfac, 8, "0", STR_PAD_LEFT);
-                    $caeNum = $result['CAE']; 
-                    $caeFvtoo = $result['CAEFchVto'];
-                    $docTipo = $doc_t;// CUIT 80 o 99 cf
-                    $docNro = $valor_cuit_cuil_dni;
-                    $nombreRS = $cond_iva; //CF RI
-                    $tipoPago = $cond_venta;
-                    $impNeto = $neto_gravado;
-                    $impIVA = $iva_21;
-                    $impTotal = $total ;
-                    $cbteAsoc = '0';
-                    $codigoBarra = $codigo_barra_final;
-                    $servicios = $request->input('prod_servicios');
-                    $concepto = 'NULL';
-                    $FchServDesde = $request->input('FchServDesde');
-                    $FchServHasta = $request->input('FchServHasta');
-                    $FchVtoPago = $request->input('FchVtoPago');
-                     DB::insert('insert into afip (cbteFch, tipoCbteNumero, nroCbte, caeNum, caeFvto, docTipo, docNro, nombreRS, tipoPago, impNeto, impIVA, impTotal, cbteAsoc, codigoBarra, servicios ,concepto, fdesde, fhasta, fvtopag) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?)', 
-                                        [$cbteFch ,$tipoCbteNum, $nroCbte, $cae, $vtocae, $docTipo, $docNro, $nombreRS, $tipoPago, $impNeto, $impIVA, $impTotal, $cbteAsoc, $codigoBarra, $servicios ,$concepto , $FchServDesde , $FchServHasta, $FchVtoPago ]);
+                                       
         }
          
 

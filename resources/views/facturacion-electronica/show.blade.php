@@ -4,7 +4,7 @@
 <h3 id="noimpr">Factura Electronica</h3>
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<table style="border: 1px solid black">
+<table style="border: 1px solid black" >
     <tbody>
         <tr>
             <th WIDTH="600" style="border: 1px solid; padding: 10px; font-family: sans-serif">
@@ -31,8 +31,8 @@
                 </th>
                 <th WIDTH="400" style="border: 1px solid; padding: 10px; font-family: sans-serif">
                     <span style="font-size: 20px; "><b>FACTURA</b></span><br>
-                    Nº: {{ $factura->nroCbte }} <br>
-                    Fecha: {{ $factura->cbteFch }}<BR>
+                    <span id="NumCbte"> Nº: {{ $factura->nroCbte }} </span> <br>
+                    <span id="FCbte">    Fecha: {{ $newDate = date("d/m/Y", strtotime($factura->cbteFch)) }}<br>
                 </th>
         </tr>
     </tbody>
@@ -115,21 +115,27 @@
 
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <div id="cae">
             <table>
                 <tbody>
+                @if ($facturas[0]->caeNum!=null) 
                     <tr>
-                        <th WIDTH="400" HEIGHT="100">
-                            CAE: {{-- {{$venta->cae }} --}} <br>
-                            Vto. CAE: {{-- {{$venta->vtocae }} --}}
+                    <th WIDTH="200" HEIGHT="100">
+                            @if ($facturas[0]->caeNum!=null) 
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl={{$facturas[0]->codigoQr}}">
+                            @endif 
                         </th>
-                        <th WIDTH="300">
-                            {{-- @if ($venta->cae!=null) --}}
-                            {{-- <img style="width: inherit" src='https://barcode.tec-it.com/barcode.ashx?data={{ $codigo }}&code=Code128&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Svg&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0'>
-                            --}}
-                            {{-- @endif --}}
+                        <th WIDTH="800" HEIGHT="100">
+                        <img src="{{asset('img/logo_afip.png')}}"   height="40%" width="40%"><br>
+                        <span style="font-size: 15px">Comprobante Autorizado</span><br>
+                        <span style="font-size: 10px">Esta administración federal no se responsabiliza por los datos ingresados en el detalle de la operación</span>
                         </th>
+                        <th WIDTH="300" HEIGHT="100">
+                            CAE:  {{$facturas[0]->caeNum}} <br>
+                            Fecha Vto. CAE:{{ $newDate = date("d/m/Y", strtotime($facturas[0]->caeFvto ))}} 
+                        </th>
+                 @endif   
                     </tr>
                 </tbody>
             </table>
@@ -137,12 +143,15 @@
 
         <div class="p-lg " id="noimpr">
             <div id="btncae">
-                {{-- @if ($venta->cae==null) --}}
-                <button id="btn-sol-cae" class="btn btn-primary">Solicitar CAE</button>
-                {{-- @endif --}}
-                <button type="button" class="btn btn-primary" onclick="javascript:window.print()"><i
+                @if ($facturas[0]->caeNum==null) 
+                <button id="btn-sol-cae" class="btn btn-primary">Registrar en AFIP</button>
+                 @endif
+                 @if ($facturas[0]->caeNum!=null) 
+                 <button type="button" class="btn btn-primary" onclick="javascript:window.print()"><i
                         class="fa fa-print"></i> Imprimir</button>
-                {{-- <button  id="total"  onclick="calculatorTotal()" class="btn btn-primary">Total</button> --}}
+                 @endif
+               
+               
             </div>
         </div>
     </div>
@@ -180,6 +189,7 @@
                 /* calculatorTotal() */
                 solicitar_cae()
             });
+            
         });
 
         function solicitar_cae() {
@@ -197,8 +207,11 @@
                 },
                 success: function (data) {
                     alert('comprobante registrado')
+                   
                     $("#cae").load(" #cae");
-                    $("#numero").load(" #numero");
+                    $("#encabezado").load(" #encabezado");
+                    $("#NumCbte").load(" #NumCbte");
+                    $("#FCbte").load(" #FCbte");
                     $("#btncae").load(" #btncae");
                     $("#btn-cae").load(" #btn-cae");
                     console.log(data)
