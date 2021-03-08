@@ -462,10 +462,12 @@ class FacturacionController extends Controller
                 
         if($tipo_comprob == 'Factura C'){
             //ctes para probar
+            $cbtetipo = 11;
             $ImpTotal = 1;
             $afip = new Afip($options);
-            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, 11);
-            dd($last_voucher);
+            $last_voucher = $afip->ElectronicBilling->GetLastVoucher($punto_v, $cbtetipo);
+            $info = $afip->ElectronicBilling->GetVoucherInfo(1 ,$punto_v , $cbtetipo);
+            dd($info);
             $numComp = $last_voucher + 1;
             
             
@@ -473,31 +475,65 @@ class FacturacionController extends Controller
             $ImpNeto = number_format((float)$ImpNeto, 2, '.', '');
             $ImpIVA = $ImpTotal - $ImpNeto;
             $ImpIVA = number_format((float)$ImpIVA, 2, '.', '');
+
+            $ImpTot = $ImpNeto + $ImpIVA;
             
-       
+            /* dd($ImpTot,$ImpNeto,$ImpIVA); */
+            
+           
 
 
             $date = Carbon::now('America/Argentina/Buenos_Aires');
             $date2 = $date->format('Ymd');
 
+            $id_factura = $request->get('idfactura');
+            /* $id_factura = 1; *///esto borrar despues es solo para probar
+            $facturas = DB::table('facturas as d')
+                ->where('id_factura','=', $id_factura)
+                ->get();
+
+            foreach($facturas as $f){
+                $fechaD = $f->fdesde;
+                $fechaH = $f->fhasta;
+                $fechaVtoPag = $f->fvtopag;
+            }
+
+            
+            $fechaDesde = date('Ymd', strtotime($fechaD));
+            $fechaHasta = date('Ymd', strtotime($fechaH));
+            $fechaVtoPago = date('Ymd', strtotime($fechaVtoPag));
+
+            /* dd($fechaDesde,$fechaHasta,$fechaVtoPago); */
+            
+
             $data = array(
                 'CantReg' 	=> 1,  // Cantidad de comprobantes a registrar
-                'PtoVta' 	=> 2,  // Punto de venta
-                'CbteTipo' 	=> 11,  // Tipo de comprobante (ver tipos disponibles) 
-                'Concepto' 	=> 1,  // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
-                'DocTipo' 	=> 99, // Tipo de documento del comprador (99 consumidor final, ver tipos disponibles)
-                'DocNro' 	=> 0,  // Número de documento del comprador (0 consumidor final)
+                'PtoVta' 	=> $punto_v,  // Punto de venta
+                'CbteTipo' 	=> $cbtetipo,  // Tipo de comprobante (ver tipos disponibles) 
+                'Concepto' 	=> 2,  // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
+                "FchServDesde" => $fechaDesde,
+                "FchServHasta" => $fechaHasta,
+                "FchVtoPago" => $fechaVtoPago,
+                'DocTipo' 	=> 80, // Tipo de documento del comprador (99 consumidor final, ver tipos disponibles)
+                'DocNro' 	=> $cuit_os,  // Número de documento del comprador (0 consumidor final)
                 'CbteDesde' 	=> $numComp,  // Número de comprobante o numero del primer comprobante en caso de ser mas de uno
                 'CbteHasta' 	=> $numComp,  // Número de comprobante o numero del último comprobante en caso de ser mas de uno
                 'CbteFch' 		=> intval($date2), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
-                'ImpTotal' 	=> $ImpNeto, // Importe total del comprobante
+                'ImpTotal' 	=> $ImpTot, // Importe total del comprobante
                 'ImpTotConc' 	=> 0,   // Importe neto no gravado
                 'ImpNeto' 	=> $ImpNeto, // Importe neto gravado
                 'ImpOpEx' 	=> 0,   // Importe exento de IVA
-                'ImpIVA' 	=> 0,  //Importe total de IVA
+                'ImpIVA' 	=> $ImpIVA,  //Importe total de IVA
                 'ImpTrib' 	=> 0,   //Importe total de tributos
                 'MonId' 	=> 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
-                'MonCotiz' 	=> 1,     // Cotización de la moneda usada (1 para pesos argentinos)  
+                'MonCotiz' 	=> 1,     // Cotización de la moneda usada (1 para pesos argentinos)
+                'Iva' 		=> array( // (Opcional) Alícuotas asociadas al comprobante
+                    array(
+                        'Id' 		=> 5, // Id del tipo de IVA (5 para 21%)(ver tipos disponibles) 
+                        'BaseImp' 	=> $ImpNeto, // Base imponible
+                        'Importe' 	=> $ImpIVA // Importe 
+                    )
+                ),  
                 
             );
             
