@@ -102,7 +102,7 @@ class CertificadosController extends Controller
 
 
         $certs = Certificados::with('users')->where('id_user', \Auth::user()->id)->get();
-
+        $request->session()->flash('mensaje-success', 'Los Certificados y el Punto de venta se cargaron Correctamente !!!');
         return redirect('/certs');
     }
 
