@@ -135,7 +135,6 @@ Route::resource('facturacion', 'FacturacionController');
 Route::get('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura');
 
 
-Route::get('/fact', 'FacturacionController@facturaelectronica')->name('facturacion.ws');
 Route::get('/cae', 'FacturacionController@cae')->name('soli');
 
 
@@ -143,7 +142,7 @@ Route::get('/prefactura', 'FacturacionController@indexfactura')->name('previaFac
 Route::get('/pre', 'FacturacionController@indexfactura')->name('prefacturas');
 
 
-/* Route::post('/consultarcuit', 'FacturacionController@consultarcuit')->name('solicitarcae'); */
+
 Route::post('/caesolicitud', 'FacturacionController@caesolicitud')->name('caesolicitud');
 Route::post('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura');
 

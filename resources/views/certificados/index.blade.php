@@ -15,8 +15,8 @@
   </br>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            {{-- @include('compartido.mensajes')
-            @include('compartido.errores') --}}
+            @include('compartido.mensajes')
+            @include('compartido.errores')
             <div class="table-responsive">
                 <table id="example" class="display table table-bordered table-striped">
                         <thead>

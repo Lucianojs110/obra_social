@@ -233,12 +233,9 @@ $anio_posterior= $d1->format('Y');
 						@if($data['obrasocial'][0]->nombre == "APROSS")
 
 							<div class="float-left float-lg-right pl-4 pl-lg-0 pr-0 pr-lg-4">
-
-								<a target="_BLANK" href="{{ route('previaFactura', [/* 'prestador_id' => Auth::user()->id,
-																				    'os' => $data['obrasocial'][0]->id, 
-																				    'mes' => Auth::user()->mes, 
-																					'anio' => Auth::user()->anio */]) }}" 
-																					class="btn btn-success" >Facturar</a>
+								
+								<a target="_BLANK" href="{{ action('FacturacionController@index') }}" 
+																					class="btn btn-success" >Facturación</a>
 
 								@if(Auth::user()->role == 'Traslado')
 

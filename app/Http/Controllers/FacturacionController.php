@@ -227,33 +227,6 @@ class FacturacionController extends Controller
     }
 
 
-    public function facturaelectronica(){
-
-        $obj = Certificados::with('users')->where('id_user', \Auth::user()->id)->first();
-        $punto_v = $obj->ptovta;
-        $filekey = $obj->certkey;
-        $filecrt = $obj->certcrt;
-       
-        $options = [ //options es un array con el CUIT (de la empresa que esta vendiendo)
-            'CUIT' => 20355003192,
-            'production' => True,
-           
-            'cert' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filecrt,
-            'key' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey,
-           
-            ];
-
-            $afip = new Afip($options);
-            $voucher_types = $afip->ElectronicBilling->GetVoucherTypes();
-            dd($voucher_types);
-
-            $inscription = $afip->RegisterInscriptionProof->GetTaxpayerDetails('30519536435');
-         
-    }
-
-
-    
-
 
     public function consultafactura(Request $request){
 
@@ -281,36 +254,6 @@ class FacturacionController extends Controller
         return $qss;  
     }
 
-    public function consultarcuit(Request $request){
-
-        
-
-        $obj = Certificados::with('users')->where('id_user', \Auth::user()->id)->first();
-        $punto_v = $obj->ptovta;
-        $filekey = $obj->certkey;
-        $filecrt = $obj->certcrt;
-        
-        $options = [                    //options es un array con el CUIT (de la empresa que esta vendiendo)
-            'CUIT' => 20355003192,
-            'production' => True,
-            'cert' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filecrt,
-            'key' => '/'.\Auth::user()->id. '/'.$punto_v .'_'.$filekey,
-           
-            ];
-
-            $afip = new Afip($options);
-            $voucher_types = $afip->ElectronicBilling->GetVoucherTypes();
-
-            $cuit_cliente_osecac = $request->input('cuit');
-            /* $aspross_cuit = 30999253675; */
-
-            $inscription = $afip->RegisterInscriptionProof->GetTaxpayerDetails($cuit_cliente_osecac);
-            
-
-           // dd($inscription);
-            
-        
-    }
 
 
    public function caesolicitud(Request $request){

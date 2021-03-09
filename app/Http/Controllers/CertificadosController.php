@@ -57,9 +57,17 @@ class CertificadosController extends Controller
         $file1 = $request->file('archivokey');
         $file2 = $request->file('archivocrt');
 
-       /*  dd($file1,$file2); */
-        /* dd($request->all()); */
 
+          if($file1->getClientOriginalExtension() != 'key') {
+            $request->session()->flash('mensaje-warning', 'El Primer Certificado subido no es extension .key , Por favor revisar de que su extension sea .key !!!');
+            return redirect('/certs');
+          }
+        
+          if($file2->getClientOriginalExtension() != 'crt'){
+            $request->session()->flash('mensaje-warning', 'El Segundo Certificado subido no es extension .crt , Por favor revisar de que su extension sea .crt !!!');
+            return redirect('/certs');
+          }
+       
         
         if($file1 != null && $file2 != null)
         {
@@ -73,7 +81,10 @@ class CertificadosController extends Controller
         }
         else
         {
-            dd('uno de los arhivos esta vacio , revise de subir ambos correspondientemente');
+            
+
+            $request->session()->flash('mensaje-warning', 'Uno de los certificados, No fue subido correctamente, Por favor revisar de subir ambos archivos correspondientemente !!!');
+            return redirect('/certs');
         }
         
         $cert = new Certificados();
