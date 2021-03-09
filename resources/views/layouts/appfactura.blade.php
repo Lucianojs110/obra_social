@@ -8,14 +8,13 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   
 
     
     <!-- Script para el ojito NOTA CREDITO-->
-{{--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' type='text/javascript'></script> --}}
-    <!-- Font Awesome JS -->
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--}}
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' type='text/javascript'></script> 
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"> </script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"> </script>
 
@@ -27,6 +26,10 @@
     <link rel="stylesheet" href="{{asset('adminfact/css/bootstrap-select.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('adminfact/css/font-awesome.css')}}">
+    <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
+
+  
+    
     <!-- Theme style -->
     <link rel="stylesheet" media="all" href="{{asset('adminfact/css/AdminLTE.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -36,9 +39,11 @@
     <link rel="shortcut icon" href="{{asset('adminfact/img/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('adminfact/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminfact/plugins/datepicker/css/bootstrap-datepicker3.css')}}">
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('adminfact/plugins/DataTables-1.10.16/css/dataTables.bootstrap.css') }}" />
-    <link rel="stylesheet" type="text/css" media="all" href="{{ asset('adminfact/plugins/DataTables-1.10.16/css/jquery.dataTables.min.css') }}" />
+   
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('adminfact/plugins/bootstrap-fileinput-3540936/css/fileinput.min.css') }}"/>
+      <!-- DataTables -->
+      <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/responsive.bootstrap.min.css') }}">
     @stack('styles')
 
     <style type="text/css" media="print">
@@ -79,7 +84,7 @@
 
 <body class="hold-transition skin-purple sidebar-mini" >
     <div class="wrapper">
-
+    @auth
         <header class="main-header">
 
             <!-- Logo -->
@@ -116,12 +121,31 @@
                                 <span class="hidden-xs"></span>{{ substr(Auth::user()->role, 0, 1).Auth::user()->id.' '.Auth::user()->name . ' ' . Auth::user()->surname}}
                               {{--  <span class="hidden-xs"></span> USUARIO: GABRIEL GOMEZ --}}
                             </a>
+                           
                             <ul class="dropdown-menu">
-                                <!-- User image -->
+                                    <li class="user-body">
+                                        <div class="pull-right">
+                                            <a class="dropdown-item btn btn-default" href="{{ route('pass') }}">
+                                            {{ __('Cambiar contraseña') }}
+                                            </a>
+                                        </div>
+                                    </li>
+                                     <li class="user-body">
+                                        <div class="pull-right">
+                                            <a class="dropdown-item btn btn-default" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Salir') }}
+                                            </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                        </div>
+                                    </li>
+                                </ul>
                                 <li class="user-header">
-                                    {{-- <p>
-                    DEPENDENCIA
-                  </p>  --}}
+                                    {{-- <p>DEPENDENCIA </p>  --}}
                                 </li>
 
                                 <!-- Menu Footer-->
@@ -188,15 +212,28 @@
                             </a>
                         </li>
                     </li>
+                   
                     <li class="treeview {{Request::is('dependencias', 'dependencias/*') ? 'active' : '' }}">
-                        <li>
-                            <a href="{{ action('FacturacionController@index') }}">
-                                <i class="fa fa-money-check-alt"></i>
+                            <a href="Javascript:void(0)">
+                            <i class="fa fa-money-check-alt"></i>
                                 <span>Facturas</span>
                             </a>
-                        </li>
+                            <ul class="treeview-menu">
+                               
+                                    <li>
+                                        <a href="{{ action('FacturacionController@index') }}">
+                                        <i class="fas fa-dot-circle"></i>
+                                            <span>APROSS</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                        <i class="fas fa-dot-circle"></i>
+                                            <span>OSECAC</span>
+                                        </a>
+                                    </li>
+                            </ul>
                     </li>
-
                   {{--   <li class="treeview {{Request::is('showtree') ? 'active' : '' }}">
                         <a href="{{URL::action('DependenciasController@showtree')}}">
                             <i class="fa fa-eye"></i>
@@ -315,5 +352,5 @@
 
 
 </body>
-
+@endauth
 </html>

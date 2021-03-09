@@ -81,6 +81,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{asset('adminfact/css/font-awesome.css')}}">
 
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
@@ -252,12 +253,8 @@
                                     <span>Video Tutoriales</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{ action('CertificadosController@index') }}">
-                                    <i class="fa fa-address-card"></i>
-                                    <span>Certificados AFIP</span>
-                                </a>
-                            </li>
+                           
+                      
                             <li class="treeview"><a href="Javascript:void(0)">
                                 <i class="fa fa-envelope-open-o"></i>
                                 <span>Adm. mensajes</span>

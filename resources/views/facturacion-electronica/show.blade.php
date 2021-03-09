@@ -121,12 +121,12 @@
                 <tbody>
                 @if ($facturas[0]->caeNum!=null) 
                     <tr>
-                    <th WIDTH="200" HEIGHT="100">
+                    <th WIDTH="250" HEIGHT="100">
                             @if ($facturas[0]->caeNum!=null) 
                             <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl={{$facturas[0]->codigoQr}}">
                             @endif 
                         </th>
-                        <th WIDTH="800" HEIGHT="100">
+                        <th WIDTH="700" HEIGHT="100">
                         <img src="{{asset('img/logo_afip.png')}}"   height="40%" width="40%"><br>
                         <span style="font-size: 15px">Comprobante Autorizado</span><br>
                         <span style="font-size: 10px">Esta administración federal no se responsabiliza por los datos ingresados en el detalle de la operación</span>
