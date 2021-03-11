@@ -82,7 +82,9 @@
 
       <div class="box-body">
 
-
+<style type="text/css">
+  .sorting_asc {display: none !important}
+</style>
 
        <table class="table table-bordered table-striped dt-responsive tablas">
 
@@ -96,15 +98,16 @@
 
 
 
-           <th style="width:10px">#</th>
-
-           <th>Obra Social</th>
+           <th style="width:1px;display: none;"></th>
+<th >#</th>
+           <th style="display: none;">Obra Social</th>
 
            <th>Numero de Prestador</th>
 
            <th>Prestacion</th>
 
            <th>Valor de Módulo</th>
+           <th>Valor Unitario</th>
 
            <th>Acciones</th>
 
@@ -123,31 +126,68 @@
 
 
           @if($prestador != null)
+<?php $f=0;
+$cantidad=count($prestador);
 
-            @foreach($prestador as $key=>$prestacion)
+            for($i=0;$i<$cantidad;$i++) { 
+              $array_num[$i]=$i;
+              $prestacion = $prestador[$i];
 
+         
+ ?>
 
 
             <tr>
 
-              <td>{{ $key+1 }}</td>
+              <td style="width: 1px;"></td>
+               <td><?php echo $i+1; ?></td>
 
-              <td>{{ $prestacion->obrasocial[0]->nombre }}</td>
+              <td>{{ $prestacion->obrasocial }}</td>
 
               <td>{{ $prestacion->numero_prestador }}</td>
+              <td>{{ ($prestacion->categoria!= null)?$prestacion->prestacion.' - '.$prestacion->categoria:$prestacion->prestacion  }}</td>
+              @if($prestacion->id_nomenclador==null)
+                  @if($prestacion->valor_default == 'T')
+                    <td>{{ number_format($prestacion->valor_modulo , 2, ',', '.') }}</td>
 
-              <td>{{ $prestacion->prestacion[0]->nombre_pres }}</td>
+                  @else
 
-              @if($prestacion->valor_default == 'T')
+                     <td>{{ number_format($prestacion->valor_prestacion , 2, ',', '.') }}</td>
 
-                 <td>{{ $prestacion->prestacion[0]->valor_modulo }}</td>
+                  @endif
 
+                  @if($prestacion->dividir != null )
+
+                      <td>{{  number_format(($prestacion->valor_modulo/$prestacion->dividir), 2, ',', '.')}}</td>
+
+                  @else
+
+                      <td>{{ number_format($prestacion->valor_modulo , 2, ',', '.')}}</td>
+
+                  @endif
               @else
+              <?php //RECUPERO EL VALOR DEL NOMENCLADOR
+              $query= "SELECT valor, dividir FROM prestacion_nomenclador WHERE id_nomenclador='$prestacion->id_nomenclador' AND id_prestacion='$prestacion->prestacion_id'";   
+     
+              $prestacion_nom = \DB::select($query);
+              ?> @if($prestacion->valor_default == 'T')
+                    <td>{{ number_format($prestacion->valor_modulo , 2, ',', '.') }}</td>
 
-                 <td>{{ $prestacion->valor_prestacion }}</td>
+                  @else
 
-              @endif
+                     <td>{{ number_format($prestacion_nom[0]->valor , 2, ',', '.') }}</td>
 
+                  @endif
+                  @if($prestacion_nom[0]->dividir != null )
+
+                      <td>{{  number_format(($prestacion_nom[0]->valor/$prestacion_nom[0]->dividir), 2, ',', '.')}}</td>
+
+                  @else
+
+                      <td>{{ number_format($prestacion_nom[0]->valor , 2, ',', '.')}}</td>
+
+                  @endif
+             @endif
 
 
               <td>
@@ -173,8 +213,8 @@
             </tr>
 
 
-
-            @endforeach
+<?php } ?>
+           
 
           @endif
 
@@ -225,7 +265,7 @@ MODAL AGREGAR PRESTACION
 
 
       <form role="form" method="POST" action="{{ route('prestador-create') }}">
-
+ <input type="hidden" name="nomenclador" id="nomenclador" value="">
         @csrf
 
 

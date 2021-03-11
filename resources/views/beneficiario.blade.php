@@ -1,3 +1,5 @@
+<?php use App\Prestador;
+use App\Planilla;?>
 @extends('layouts.app', ['prestador' => $data['prestador_menu']])
 
 <style>
@@ -39,10 +41,10 @@
 
 
 	$anios = ['2020', '2021', '2022', '2023'];
-	$fecha_user = \Auth::user()->anio.'-'.\Auth::user()->mes;
-	$query2 ="SELECT id_ben FROM inactivos WHERE (DATE_FORMAT(CAST(fecha as DATE), \"%Y-%m\") <= \"".$fecha_user."\" AND fecha_fin IS NULL) OR (DATE_FORMAT(CAST(fecha as DATE), \"%Y-%m\") <= \"".$fecha_user."\" AND DATE_FORMAT(CAST(fecha_fin as DATE), \"%Y-%m\") > \"".$fecha_user."\")";
- 	$array_inactivos = \DB::select($query2);
-	$ids = array();
+$fecha_user = \Auth::user()->anio.'-'.\Auth::user()->mes;
+$query2 ="SELECT id_ben FROM inactivos WHERE (DATE_FORMAT(CAST(fecha as DATE), \"%Y-%m\") <= \"".$fecha_user."\" AND fecha_fin IS NULL) OR (DATE_FORMAT(CAST(fecha as DATE), \"%Y-%m\") <= \"".$fecha_user."\" AND DATE_FORMAT(CAST(fecha_fin as DATE), \"%Y-%m\") > \"".$fecha_user."\")";
+ $array_inactivos = \DB::select($query2);
+$ids = array();
 
 foreach($array_inactivos as $key){
 	$ids[]=$key->id_ben;
@@ -55,6 +57,7 @@ if(Auth::user()->mes){
 	$date1 = new DateTime(Auth::user()->anio."-".Auth::user()->mes."-".date("d"));
 }else{
 	$date1 = new DateTime(Auth::user()->anio."-".date("m")."-".date("d"));
+	Auth::user()->mes = date("m");
 }
 $date2 = new DateTime(date("Y-m-d"));
  
@@ -233,9 +236,6 @@ $anio_posterior= $d1->format('Y');
 						@if($data['obrasocial'][0]->nombre == "APROSS")
 
 							<div class="float-left float-lg-right pl-4 pl-lg-0 pr-0 pr-lg-4">
-								
-								<a target="_BLANK" href="{{ action('FacturacionController@index') }}" 
-																					class="btn btn-success" >Facturación</a>
 
 								@if(Auth::user()->role == 'Traslado')
 
@@ -248,7 +248,6 @@ $anio_posterior= $d1->format('Y');
 									<a target="_BLANK" href="{{ route('beneficiario-planilla-facturacion', ['prestador_id' => Auth::user()->id, 'os' => $data['obrasocial'][0]->id, 'mes' => Auth::user()->mes, 'anio' => Auth::user()->anio]) }}" class="btn btn-success" >Planilla de Facturacion</a>
 
 								@endif
-								
 
 							</div>
 
@@ -281,7 +280,7 @@ $anio_posterior= $d1->format('Y');
 						@endif
 
 						<th style="text-align: center">Clonar</th>
-						
+
 						<th>Apellido y Nombre</th>
 
 						<th style="text-align: center">N° de Beneficiario</th>
@@ -309,7 +308,6 @@ $anio_posterior= $d1->format('Y');
 						<?php 
 
 							$codigo_prestacion = $beneficiario->prestacion[0]->codigo_modulo;
-							$id_presta = $beneficiario->prestacion[0]->id;
 
 							$planilla = $beneficiario->prestacion[0]->planilla;
 
@@ -341,8 +339,6 @@ $anio_posterior= $d1->format('Y');
 
 									@endif
 
-							
-							
 								<td>{{ $benefval->nombre . ' ' . $benefval->apellido }}</td>
 
 								<td style="text-align: center">{{ $benefval->numero_afiliado }}</td>
@@ -497,6 +493,20 @@ $anio_posterior= $d1->format('Y');
 				<?php
 				$fecha_inactivo_mes = date("m",strtotime($benefval->fecha_inactivo));
 				$fecha_inactivo_anio = date("Y",strtotime($benefval->fecha_inactivo));
+				//Busco si tiene planilla
+		              //RECUPERO os_id y prestacion_id de prestador
+		        $prestador = Prestador::where('id', $benefval->prestador_id)->with('prestacion')->get();
+		    
+		        
+		        $planilla_o_p = Planilla::where('id_obrasocial', $prestador[0]->os_id)->where('id_prestacion', $prestador[0]->prestacion_id)->get();
+		        if(@$planilla_o_p[0]->archivo){
+		        	if(file_exists('resources/views/forms/nomenclador/'.$planilla_o_p[0]->archivo.'.blade.php')){
+		        		$planilla=$planilla_o_p[0]->archivo;
+		        		$nombre_planilla =$planilla_o_p[0]->nombre;
+		        	}
+		        	
+		        }
+		        	
 				?>
 				@if($benefval->activo==0 and ($fecha_inactivo_mes==Auth::user()->mes) and ($fecha_inactivo_anio==Auth::user()->anio) )
 
@@ -543,9 +553,9 @@ $anio_posterior= $d1->format('Y');
 						<td style="width: 200px">
 
 							<div class="btn-group">	
-
+								@if($planilla)
 								<a target="_BLANK" href="{{ route('formulario-beneficiario', ['id' => $benefval->id, 'prestador_id' => $benefval->prestador_id ,'planilla' => $planilla, 'mes' => Auth::user()->mes, 'anio' => Auth::user()->anio]) }}" class="btn btn-primary" style="color: white; background-color: #605CA8; padding: 3px 12px 3px;"><span>{{ $nombre_planilla }}<span></a>
-
+								@endif
 								@if($codigo_prestacion != '6501024')
 
 									<button class="btn btn-primary btnHorarioBeneficiario" data-toggle="modal" data-target="#modalHorarioBeneficiario" idBenef="{{ $benefval->id }}" cuenta-tope="{{ $data['fechas']['tope'][$benefval->id][$benefval->id] }}" cuenta-original="{{ count($data['fechas']['total'][$benefval->id])}}" cuenta-agregados="{{ $data['fechas']['total_agregado'][$benefval->id] }}"><i class="fa fa-clock-o"></i></button>
@@ -618,7 +628,6 @@ MODAL AGREGAR BENEFICIARIO
       	<input type="hidden" name="anio" value="{{Auth::user()->anio}}">
 
         @csrf
-
 
 
         <!--=====================================
@@ -747,8 +756,8 @@ MODAL AGREGAR BENEFICIARIO
 
 						<select type="text" class="form-control input-lg mb-4" name="prestacion" required>
 
-							<option >Elegir opción</option>
-							
+							<option value>Elegir opción</option>
+
 							@foreach ($data['prestacion'] as $presta)
 
 							<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
@@ -882,12 +891,17 @@ MODAL AGREGAR BENEFICIARIO
 
 
 
-                        <select type="text" class="form-control input-lg" name="provincia" placeholder="Ingresar Provincia" required="required">
+                        <select type="text" class="form-control input-lg" name="provincia" id="provincia" placeholder="Ingresar Provincia" required="required">
 
                           <option value>Elegir opción</option>
                         @foreach($provincia as $key=>$pr)
+                        	<?php if(Auth::user()->id_provincia==$pr->id ){
+                        		$select="selected";
+                        	}else{
+                        		$select="";
+                        	} ?>
 
-							<option value="{{ $pr->id }}">{{ $pr->provincia }}</option>
+							<option value="{{ $pr->id }}" {{$select}}>{{ $pr->provincia }}</option>
 
 						@endforeach
                           
@@ -934,12 +948,16 @@ MODAL AGREGAR BENEFICIARIO
 
 
 
-                        <select type="text" class="form-control input-lg" name="id_provincia_prestacion" placeholder="Ingresar Provincia" required="required">
+                        <select type="text" class="form-control input-lg" name="id_provincia_prestacion" id="id_provincia_prestacion" placeholder="Ingresar Provincia" required="required">
 
                           <option value>Elegir opción</option>
                         @foreach($provincia as $key=>$pr)
-
-							<option value="{{ $pr->id }}">{{ $pr->provincia }}</option>
+<?php if(Auth::user()->id_provincia==$pr->id ){
+                        		$select="selected";
+                        	}else{
+                        		$select="";
+                        	} ?>
+							<option value="{{ $pr->id }}" {{$select}}>{{ $pr->provincia }}</option>
 
 						@endforeach
                           
@@ -1268,7 +1286,7 @@ MODAL AGREGAR BENEFICIARIO OSECAC
 
 								@foreach ($data['prestacion'] as $presta)
 
-								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre }}</option>
+								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
 
 								@endforeach
 
@@ -1298,7 +1316,7 @@ MODAL AGREGAR BENEFICIARIO OSECAC
 
 								@foreach ($data['prestacion'] as $presta)
 
-								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre }}</option>
+								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
 
 								@endforeach
 
@@ -1310,7 +1328,7 @@ MODAL AGREGAR BENEFICIARIO OSECAC
 
 							<label for="profesion">Profesión/Especialidad</label>
 
-							<select type="text" class="form-control input-lg mb-4" name="profesion" required>
+							<select type="text" class="form-control input-lg mb-4" name="profesion">
 
 								<option value="">Elegir opción</option>
 								<option value="FONOAUDIOLOGIA">FONOAUDIOLOGIA</option>
@@ -1505,13 +1523,18 @@ MODAL AGREGAR BENEFICIARIO OSECAC
 
 
 
-                        <select type="text" class="form-control input-lg" name="provincia" placeholder="Ingresar Provincia" required="required">
+                        <select type="text" class="form-control input-lg" name="provincia" id="provinciabeneficiario" placeholder="Ingresar Provincia" required="required">
 
                           <option value>Elegir opción</option>
 
                           @foreach($provincia as $key=>$pr)
+                        	<?php if(Auth::user()->id_provincia==$pr->id ){
+                        		$select="selected";
+                        	}else{
+                        		$select="";
+                        	} ?>
 
-							<option value="{{ $pr->id }}">{{ $pr->provincia }}</option>
+							<option value="{{ $pr->id }}" {{$select}}>{{ $pr->provincia }}</option>
 
 						@endforeach
 
@@ -1561,12 +1584,16 @@ MODAL AGREGAR BENEFICIARIO OSECAC
 
 
 
-                        <select type="text" class="form-control input-lg" name="id_provincia_prestacion" placeholder="Ingresar Provincia" required="required">
+                        <select type="text" class="form-control input-lg" name="id_provincia_prestacion" id="id_provincia_prestacion2" placeholder="Ingresar Provincia" required="required">
 
                           <option value>Elegir opción</option>
                         @foreach($provincia as $key=>$pr)
-
-							<option value="{{ $pr->id }}">{{ $pr->provincia }}</option>
+                        	<?php if(Auth::user()->id_provincia==$pr->id ){
+                        		$select="selected";
+                        	}else{
+                        		$select="";
+                        	} ?>
+							<option value="{{ $pr->id }}" {{$select}}>{{ $pr->provincia }}</option>
 
 						@endforeach
                           
@@ -2034,6 +2061,30 @@ MODAL EDITAR BENEFICIARIO
 							<input type="text" class="form-control input-lg" id="editarLocalidadPrestacion" name="editarLocalidadPrestacion" placeholder="Ingresar Localidad de Prestación">
 
                   		</div>
+<div class="form-group col-lg-12">
+				<div class="input-group w-100">
+
+
+
+                        <label for="provincia">Editar Provincia del Prestación</label>
+
+
+
+                        <select type="text" class="form-control input-lg" name="editarid_provincia_prestacion" id="editarid_provincia_prestacion" placeholder="Ingresar Provincia" required="required">
+
+                          <option value>Elegir opción</option>
+
+                          @foreach($provincia as $key=>$pr)
+
+							<option value="{{ $pr->id }}">{{ $pr->provincia }}</option>
+
+						@endforeach
+                        </select>
+
+
+
+                  </div>
+              </div>
 
 						<div class="col-sm-12 col-lg-6">
 
@@ -2053,7 +2104,8 @@ MODAL EDITAR BENEFICIARIO
 
 					</div>
 
-				</div>@if(Auth::user()->role == 'Traslado')
+				</div>
+				@if(Auth::user()->role == 'Traslado')
 				<div class="form-group col-lg-12 mb-0">
 
 				<div class="input-group w-100">
@@ -2080,30 +2132,6 @@ MODAL EDITAR BENEFICIARIO
 				</div>
 
 			</div>@endif
-<div class="form-group col-lg-12 mb-0">
-				<div class="col-lg-12">
-
-
-
-                        <label for="provincia">Editar Provincia del Prestación</label>
-
-
-
-                        <select type="text" class="form-control input-lg" name="editarid_provincia_prestacion" id="editarid_provincia_prestacion" placeholder="Ingresar Provincia" required="required">
-
-                          <option value>Elegir opción</option>
-
-                          @foreach($provincia as $key=>$pr)
-
-							<option value="{{ $pr->id }}">{{ $pr->provincia }}</option>
-
-						@endforeach
-                        </select>
-
-
-
-                  </div>
-              </div>
 
 				<!--Entrada para KM ida y vuelta -->
 
@@ -2874,6 +2902,11 @@ MODAL HORARIO BENEFICIARIO
                           <span id="errorBenef"></span>
 
                       </div>
+<div class="alert alert-success text-center horarioSuccess" style="display: none;">
+
+					<span id="horarioSuccess"></span>
+
+				</div>
 
 
 
@@ -2998,12 +3031,12 @@ MODAL HORARIO BENEFICIARIO
                             <div class="input-group col-lg-12">
 
 
-
 									<div class="col-lg-12">
 
 										<label for="dia">Dias</label>
 
-										<select multiple type="text" class="form-control input-lg" id="dia" name="dia[]" required>
+											
+								<select multiple type="text" class="form-control input-lg" id="dia" name="dia[]" required>
 
 											<option value="1">Lunes</option>
 
@@ -3020,6 +3053,7 @@ MODAL HORARIO BENEFICIARIO
 											<option value="7">Domingo</option>
 
 										</select>
+										
 
 									</div>
 
@@ -3037,7 +3071,7 @@ MODAL HORARIO BENEFICIARIO
 
 
 
-                                    <input type="text" class="form-control input-lg" id="hora" name="hora" placeholder="HH:MM (24hs)" data-inputmask="'alias': 'hh:mm'" data-mask required>
+                                    <input type="time" class="form-control input-lg" id="hora" name="hora"  required>
 
 
 
@@ -3048,8 +3082,8 @@ MODAL HORARIO BENEFICIARIO
                                 <div class="col-lg-3">
 
                                     <label for="tiempo">Tiempo por Sesión</label>
-
-                                    <select type="number" class="form-control input-lg selectTiempo" id="tiempoSesion" name="tiempo[]" required>
+                                    <input type="number" class="form-control input-lg selectTiempo" id="tiempoSesion" name="tiempo[]" min="45" max="255" step="45" placeholder="Múltiplo de 45" required>
+                                    <!--<select type="number" class="form-control input-lg selectTiempo" id="tiempoSesion" name="tiempo[]" required>
 
                                         <option value="">Seleccionar..</option>
 
@@ -3063,7 +3097,7 @@ MODAL HORARIO BENEFICIARIO
 
 										<option value="255">5</option>
 
-                                    </select>
+                                    </select>-->
 
 								</div>
 
@@ -3072,8 +3106,8 @@ MODAL HORARIO BENEFICIARIO
 								<div class="col-lg-3">
 
                                     <label for="tiempo">Tiempo en horas</label>
-
-                                    <select type="number" class="form-control input-lg selectTiempo" id="tiempoHoras" name="tiempo[]" required>
+									 <input type="number" class="form-control input-lg selectTiempo" id="tiempoHoras" name="tiempo[]" min="60" max="300" step="60" placeholder="Múltiplo de 60" required>
+                                   <!-- <select type="number" class="form-control input-lg selectTiempo" id="tiempoHoras" name="tiempo[]" required>
 
                                         <option value="">Seleccionar..</option>
 
@@ -3087,7 +3121,7 @@ MODAL HORARIO BENEFICIARIO
 
 										<option value="300">5</option>
 
-                                    </select>
+                                    </select>-->
 
                                 </div>
 
@@ -3299,12 +3333,7 @@ MODAL INASISTENCIAS BENEFICIARIO
 
 
 
-				<div class="alert alert-success text-center horarioSuccess" style="display: none;">
-
-					<span id="horarioSuccess"></span>
-
-				</div>
-
+				
 
 
                   <div class="col-lg-12">        
@@ -3730,7 +3759,7 @@ MODAL CLONAR BENEFICIARIO
 
                                         @foreach ($data['prestacion'] as $presta)
 
-                                            <option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre }}</option>
+                                            <option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
 
                                         @endforeach
 

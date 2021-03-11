@@ -80,7 +80,7 @@
 		   <th>Obra Social</th>
        <th>Mes/año Inactivo</th>
 <th>Mes/año Activo</th>
-           <th>Acctiones</th>
+           <th>Acciones</th>
 
          </tr>
 
