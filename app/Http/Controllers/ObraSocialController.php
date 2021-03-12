@@ -312,7 +312,7 @@ class ObraSocialController extends Controller
 
 
 
-         $prestacion->nombre_pres = $nombre_prestacion;
+         $prestacion->nombre = $nombre_prestacion;
 
          $prestacion->os_id = $obra_social;
 

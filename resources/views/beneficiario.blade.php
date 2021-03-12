@@ -760,7 +760,7 @@ MODAL AGREGAR BENEFICIARIO
 
 							@foreach ($data['prestacion'] as $presta)
 
-							<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
+							<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre }}</option>
 
 							@endforeach
 
@@ -1286,7 +1286,7 @@ MODAL AGREGAR BENEFICIARIO OSECAC
 
 								@foreach ($data['prestacion'] as $presta)
 
-								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
+								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre }}</option>
 
 								@endforeach
 
@@ -1316,7 +1316,7 @@ MODAL AGREGAR BENEFICIARIO OSECAC
 
 								@foreach ($data['prestacion'] as $presta)
 
-								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
+								<option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre }}</option>
 
 								@endforeach
 
@@ -3759,7 +3759,7 @@ MODAL CLONAR BENEFICIARIO
 
                                         @foreach ($data['prestacion'] as $presta)
 
-                                            <option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre_pres }}</option>
+                                            <option value="{{ $presta->id }}">{{ $presta->prestacion[0]->codigo_modulo . ' - ' . $presta->prestacion[0]->nombre }}</option>
 
                                         @endforeach
 
