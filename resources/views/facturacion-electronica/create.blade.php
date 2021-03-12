@@ -17,13 +17,15 @@
         <div class="form-group col-md-2">
             <label>Año</label>
             <select name="year" id="year" class="form-control">
-            <option value="0">Año</option>
-            <?php  
-                 $year = date("Y");
+            {{-- <option selected value="0">Año</option> --}}
+             <?php  
+             $year = date("Y");
+                echo "<option value='".$year."'>".$year."</option>";
+                /*  $year = date("Y");
                  $yeari = $year-2;
                  $yearf = $year+2;
                  for($i=$yeari;$i<=$yearf;$i++) 
-                    { echo "<option value='".$i."'>".$i."</option>"; } 
+                    { echo "<option value='".$i."'>".$i."</option>"; }  */
              ?>
             </select>
         </div>
@@ -113,7 +115,7 @@
                 success: function (data) {
                     
                     var total = 0;
-                    
+                
                     if(data.length==0){
                         $("#bodytablafac").html("<h3>No hay items a facturar en este periodo</h3>");
                         $('#total').html('$0.00');
