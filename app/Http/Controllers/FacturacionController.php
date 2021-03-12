@@ -248,7 +248,7 @@ class FacturacionController extends Controller
                     ->whereYear('prestador.created_at', $year)
                     ->where('prestador.user_id', $userid)
                     ->groupBy('prestacion.id')
-                    ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.*','prestador.*','beneficiario.*')
+                    ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.nombre as nombre_pres','prestacion.*','prestador.*','beneficiario.*')
                     ->get();
          
         return $qss;  
