@@ -113,7 +113,7 @@
 
                 },
                 success: function (data) {
-                    
+                    console.log(data);
                     var total = 0;
                 
                     if(data.length==0){
@@ -123,10 +123,10 @@
                     
                     for (i = 0; i < data.length; i++) { //cuenta la cantidad de registros
         
-                        var nuevafila = '<tr><td><input type="hidden" name="cantidad[]" value="'+data[i].cantidad+'">' +data[i].cantidad+ '</td><td><input type="hidden" name="nombre_pres[]" value="'+data[i].nombre_pres+'">' +data[i].nombre_pres + '</td><td><input type="hidden" name="valor_modulo[]" value="'+data[i].valor_modulo+'">' + data[i].valor_modulo + '</td><td><input type="hidden" name="subtotal[]" value="'+((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2)))+'">' +((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2) ))+'</td></tr>'
+                        var nuevafila = '<tr><td><input type="hidden" name="cantidad[]" value="'+data[i].cantidad+'">' +data[i].cantidad+ '</td><td><input type="hidden" name="nombre_pres[]" value="'+data[i].nombre_pres+'">' +data[i].nombre_pres + '</td><td><input type="hidden" name="valor[]" value="'+data[i].valor+'">' + data[i].valor + '</td><td><input type="hidden" name="subtotal[]" value="'+((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2)))+'">' +((parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor).toFixed(2) ))+'</td></tr>'
                         $("#bodytablafac").append(nuevafila)
                          
-                         total = total + (parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor_modulo).toFixed(2) );
+                         total = total + (parseFloat(data[i].cantidad ).toFixed(2)) * (parseFloat(data[i].valor).toFixed(2) );
                          $('#total_factura').val(total);
                     }
 

@@ -244,13 +244,15 @@ class FacturacionController extends Controller
                     ->join('prestador','prestador.prestacion_id','=','prestacion.id')
                     ->join('users','users.id','=','prestador.user_id')
                     ->join('beneficiario', 'beneficiario.prestador_id','=' , 'prestador.id')
+                    ->join('prestacion_nomenclador','prestacion_nomenclador.id_prestacion','=','prestacion.id')
                     ->whereMonth('prestador.created_at', $mes)
                     ->whereYear('prestador.created_at', $year)
                     ->where('prestador.user_id', $userid)
+                    ->where('prestacion_nomenclador.id_nomenclador', 4)
+                    ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'), 'prestacion_nomenclador.valor','prestacion.nombre as nombre_pres','prestacion.*','prestador.*','beneficiario.*')
                     ->groupBy('prestacion.id')
-                    ->select(DB::raw('SUM(beneficiario.cantidad_solicitada) as cantidad, SUM(prestacion.valor_modulo) as valortotal'),'prestacion.nombre as nombre_pres','prestacion.*','prestador.*','beneficiario.*')
                     ->get();
-         
+        
         return $qss;  
     }
 
