@@ -130,7 +130,7 @@ Route::resource('/certs', 'CertificadosController');
 // Facturacion Electronica
 
 Route::resource('facturacion', 'FacturacionController');
-Route::get('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura');
+/* Route::get('/consultafactura', 'FacturacionController@consultafactura')->name('consultafactura'); */
 
 
 Route::get('/cae', 'FacturacionController@cae')->name('soli');
