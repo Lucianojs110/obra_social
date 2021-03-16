@@ -158,7 +158,7 @@ class FacturacionController extends Controller
            $detalle->id_factura = $factura->id_factura;
            $detalle->cantidad = $cantidad[$cont];
            $detalle->nombre_prestacion= $nombre_pres[$cont];
-           $detalle->valor_modulo = $valor_modulo[$cont];
+           $detalle->valor_modulo = $valor[$cont];
            $detalle->subtotal = $subtotal[$cont];
            $detalle->save();
            $cont=$cont+1;
